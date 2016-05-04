@@ -66,4 +66,9 @@ public class Variable<E> {
                     return false;
         return true;
     }
+
+    @Override
+    public String toString(){
+        return "[\"" + name + "\" : " + value;
+    }
 }
