@@ -29,6 +29,14 @@ public class Precondition<E> {
     }
 
     /**
+     * Getter for the variable name
+     * @return the name of the variable
+     */
+    public String getVariableName(){
+        return var.getName();
+    }
+
+    /**
      * Getter for the value
      * @return the value
      */
@@ -50,6 +58,14 @@ public class Precondition<E> {
      */
     public void setValue(E newValue){
         this.value = newValue;
+    }
+
+    /**
+     * Determines if the variable got the exprected result
+     * @return whether is satisfied or not
+     */
+    public boolean isSatisfied(){
+        return value.equals(var.getValue());
     }
 
     @Override
