@@ -1,5 +1,7 @@
 package plan.domain;
 
+import plan.problem.Problem;
+
 import java.util.LinkedList;
 
 /**
@@ -36,5 +38,37 @@ public class Action {
      */
     public LinkedList<Effect> getEffects(){
         return effects;
+    }
+
+    /**
+     * Determines whether the action is currently applicable, by checking preconditions
+     * @param problem the current problem
+     * @return true if applicable
+     */
+    public boolean isApplicable(Problem problem){
+        LinkedList<Variable> temp; //will temporary store instance variables of the problem
+
+        for(Precondition precondition : preconditions) {
+            temp = problem.getInstanceVariables();
+            int index = temp.indexOf(precondition.getVariable());
+            Variable tmpVar;
+
+            //check if the precondition variable is declared in the problem
+            if(index > -1)
+                tmpVar = temp.get(index);
+            else
+                return false;
+
+            /*
+                the first condition checks whether there's an instance of the needed variable in that problem
+                to avoid users' mistakes, whereas the second checks whether the current value of the variable
+                satisfies the expected value of the precondition
+             */
+            if(precondition.getVariable().equals(tmpVar) && precondition.isSatisfied())
+                continue;
+            else
+                return false;
+        }
+        return true;
     }
 }
