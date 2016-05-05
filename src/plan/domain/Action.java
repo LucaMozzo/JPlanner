@@ -13,15 +13,17 @@ public class Action {
 
     private LinkedList<Effect> effects;
     private LinkedList<Precondition> preconditions;
+    private Problem problem;
 
     /**
      * The constructor takes the basic arguments for defining an action
      * @param preconditions the preconditions
      * @param effects the effects
      */
-    public Action(LinkedList<Precondition> preconditions, LinkedList<Effect> effects){
+    public Action(Problem problem, LinkedList<Precondition> preconditions, LinkedList<Effect> effects){
         this.preconditions = preconditions;
         this.effects = effects;
+        this.problem = problem;
     }
 
     /**
@@ -42,10 +44,9 @@ public class Action {
 
     /**
      * Determines whether the action is currently applicable, by checking preconditions
-     * @param problem the current problem
      * @return true if applicable
      */
-    public boolean isApplicable(Problem problem){
+    public boolean isApplicable(){
         LinkedList<Variable> temp; //will temporary store instance variables of the problem
 
         for(Precondition precondition : preconditions) {
@@ -70,5 +71,13 @@ public class Action {
                 return false;
         }
         return true;
+    }
+
+    /**
+     * Applies all the effects after it is performed
+     */
+    public void applyEffects(){
+        for(Effect effect : effects)
+            effect.apply(problem);
     }
 }
