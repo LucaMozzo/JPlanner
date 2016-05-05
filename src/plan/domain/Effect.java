@@ -19,7 +19,7 @@ public class Effect<E> extends Fact<E> {
     }
 
     public void apply(Problem problem){
-
+        problem.setInstanceVariableValue(var, value);
     }
 
 }
