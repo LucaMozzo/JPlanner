@@ -18,6 +18,10 @@ public class Effect<E> extends Fact<E> {
         super(var, newValue);
     }
 
+    /**
+     * Apply the value change in the given problem
+     * @param problem the problem
+     */
     public void apply(Problem problem){
         problem.setInstanceVariableValue(var, value);
     }
