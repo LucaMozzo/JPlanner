@@ -10,5 +10,30 @@ import java.util.LinkedList;
 public class Domain {
 
     private LinkedList<Action> actions;
+    private LinkedList<Type> types;
 
+    /**
+     * The constructor only initializes the linked lists
+     */
+    public Domain(){
+        actions = new LinkedList<>();
+        types = new LinkedList<>();
+    }
+
+    /**
+     * Adds an action to the domain
+     * @param action the action
+     */
+    public void addAction(Action action){
+        actions.add(action);
+    }
+
+    /**
+     * Adds a variable type in the domain
+     * @param type the type
+     */
+    public void addType(Type type){
+        if(!types.contains(type))
+            types.add(type);
+    }
 }
