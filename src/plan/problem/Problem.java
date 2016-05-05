@@ -31,4 +31,20 @@ public class Problem {
     public LinkedList<Variable> getInstanceVariables(){
         return variables;
     }
+
+    /**
+     * Given the variable and a new value, it replaces the old value of the given variable with the given one
+     * @param var the variable
+     * @param value the new value
+     */
+    public void setInstanceVariableValue(Variable var, Object value){
+        int tmpIndex;
+        //if the variable exists in the current problem
+        if((tmpIndex = variables.indexOf(var)) != -1){
+            Variable tmpVar = variables.get(tmpIndex);
+            //if the old value and the new one are of the same type
+            if(tmpVar.getValue().getClass() == value.getClass())
+                tmpVar.setValue(value);
+        }
+    }
 }

@@ -1,6 +1,6 @@
 package plan.domain;
 
-import java.util.List;
+import java.util.LinkedList;
 
 /**
  * Created by LUCA on 01/05/2016.
@@ -17,7 +17,7 @@ public class DurativeAction extends Action {
      * @param effects the effects
      * @param duration the duration
      */
-    public DurativeAction(List<Precondition> preconditions, List<Effect> effects, float duration) {
+    public DurativeAction(LinkedList<Precondition> preconditions, LinkedList<Effect> effects, float duration) {
         super(preconditions, effects);
 
         this.duration = duration;
