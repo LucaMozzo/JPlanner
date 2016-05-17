@@ -1,5 +1,7 @@
 package planner.domain;
 
+import planner.problem.State;
+
 import java.util.LinkedList;
 
 /**
@@ -35,5 +37,22 @@ public class Domain {
     public void addType(Type type){
         if(!types.contains(type))
             types.add(type);
+    }
+
+    /**
+     * Return a list of applicable actions on a state
+     * @param state the state
+     * @return the applicable actions
+     */
+    public LinkedList<Action> getApplicableActions(State state){
+
+        LinkedList<Action> applicableActions = new LinkedList<>();
+
+        //check for each action specified in the domain which can be applied in the given state
+        for(Action a : actions)
+            if(a.isApplicable(state))
+                applicableActions.add(a);
+
+        return applicableActions;
     }
 }
