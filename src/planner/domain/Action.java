@@ -1,6 +1,7 @@
 package planner.domain;
 
 import planner.problem.Problem;
+import planner.problem.State;
 
 import java.util.LinkedList;
 
@@ -13,17 +14,15 @@ public class Action {
 
     private LinkedList<Effect> effects;
     private LinkedList<Precondition> preconditions;
-    private Problem problem;
 
     /**
      * The constructor takes the basic arguments for defining an action
      * @param preconditions the preconditions
      * @param effects the effects
      */
-    public Action(Problem problem, LinkedList<Precondition> preconditions, LinkedList<Effect> effects){
+    public Action(LinkedList<Precondition> preconditions, LinkedList<Effect> effects){
         this.preconditions = preconditions;
         this.effects = effects;
-        this.problem = problem;
     }
 
     /**
@@ -44,13 +43,14 @@ public class Action {
 
     /**
      * Determines whether the action is currently applicable, by checking preconditions
+     * @param state the state on which check if applicable
      * @return true if applicable
      */
-    public boolean isApplicable(){
+    public boolean isApplicable(State state){
         LinkedList<Variable> temp; //will temporary store instance variables of the problem
 
         for(Precondition precondition : preconditions) {
-            temp = problem.getInstanceVariables();
+            temp = state.getInstanceVariables();
             int index = temp.indexOf(precondition.getVariable());
             Variable tmpVar;
 
@@ -75,9 +75,10 @@ public class Action {
 
     /**
      * Applies all the effects after it is performed
+     * @param state the state on which apply the effects
      */
-    public void applyEffects(){
+    public void applyEffects(State state){
         for(Effect effect : effects)
-            effect.apply(problem);
+            effect.apply(state);
     }
 }
