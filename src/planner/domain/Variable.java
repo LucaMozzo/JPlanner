@@ -13,14 +13,16 @@ public class Variable<E> {
     private E value;
 
     /**
-     * The constructor gives a name to the predicate
+     * The constructor gives a name to the value and sets it to default
      * @param name
      */
-    public Variable(String name){
+    public Variable(String name, E defaultValue){
         if(name != null && !Validation.checkName(name))
             this.name = name;
         else
             throw new IllegalArgumentException("The name of the predicate is not valid. Only numbers and characters are allowed");
+
+        value = defaultValue;
     }
 
     /**
