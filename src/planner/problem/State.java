@@ -14,6 +14,13 @@ public class State {
     private LinkedList<Variable> variables;
 
     /**
+     * The constructor initializes the list of variables
+     */
+    public State(){
+        variables = new LinkedList<>();
+    }
+
+    /**
      * Return all the variables of this instance
      * @return the variables
      */
@@ -37,4 +44,11 @@ public class State {
         }
     }
 
+    /**
+     * Add a variable to the list
+     * @param var the variable
+     */
+    public void addVariable(Variable var){
+        variables.add(var);
+    }
 }
