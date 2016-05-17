@@ -34,6 +34,14 @@ public class Tree implements NodeTree {
         ++size;
     }
 
+    /**
+     * Return the number of elements
+     * @return the number of elements
+     */
+    public long getSize(){
+        return size;
+    }
+
     @Override
     public Collection<Node> getChildren(Node node) {
         return node.getChildren();
