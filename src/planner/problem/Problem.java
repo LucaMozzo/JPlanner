@@ -38,6 +38,38 @@ public class Problem {
         this.goalState = goalState;
     }
 
+    /**
+     * Getter for the initial state
+     * @return the initial state
+     */
+    public State getInitialState(){
+        return initialState;
+    }
+
+    /**
+     * Getter for the goal state
+     * @return the goal state
+     */
+    public State getGoalState(){
+        return goalState;
+    }
+
+    /**
+     * Setter for the initial state
+     * @param newState the initial state
+     */
+    public void setInitialState(State newState){
+        initialState = newState;
+    }
+
+    /**
+     * Setter for the goal state
+     * @param newState the goal state
+     */
+    public void setGoalState(State newState){
+        goalState = newState;
+    }
+
     /*TODO public Plan solve(){
     }*/
 }
