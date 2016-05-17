@@ -20,7 +20,7 @@ public final class TreeBuilder{
      * @param domain the domain
      * @return the built tree
      */
-    public Tree build(Problem problem, Domain domain){
+    public static Tree build(Problem problem, Domain domain){
         Tree searchSpaceTree = new Tree();
 
         //the root is the initial state
