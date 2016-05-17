@@ -16,7 +16,9 @@ public class TreeState extends State {
      * If the state is a root state, it doesn't inherit any sequence of actions
      */
     public TreeState(){
-        this(null);
+        super();
+
+        actionList = new Plan();
     }
 
     /**
@@ -35,5 +37,13 @@ public class TreeState extends State {
      */
     public void addAction(Action action){
         actionList.addAction(action);
+    }
+
+    /**
+     * Getter for the list of actions
+     * @return the current plan
+     */
+    public Plan getPlan(){
+        return actionList;
     }
 }
