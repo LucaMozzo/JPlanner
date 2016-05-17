@@ -14,15 +14,17 @@ public class Action {
 
     private LinkedList<Effect> effects;
     private LinkedList<Precondition> preconditions;
+    private String name;
 
     /**
      * The constructor takes the basic arguments for defining an action
      * @param preconditions the preconditions
      * @param effects the effects
      */
-    public Action(LinkedList<Precondition> preconditions, LinkedList<Effect> effects){
+    public Action(String name, LinkedList<Precondition> preconditions, LinkedList<Effect> effects){
         this.preconditions = preconditions;
         this.effects = effects;
+        this.name = name;
     }
 
     /**
@@ -80,5 +82,10 @@ public class Action {
     public void applyEffects(State state){
         for(Effect effect : effects)
             effect.apply(state);
+    }
+
+    @Override
+    public String toString(){
+        return name;
     }
 }

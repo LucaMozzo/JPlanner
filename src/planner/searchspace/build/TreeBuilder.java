@@ -24,7 +24,8 @@ public final class TreeBuilder{
         Tree searchSpaceTree = new Tree();
 
         //the root is the initial state
-        TreeState init = (TreeState) problem.getInitialState();
+        TreeState init = new TreeState();
+        init.addVariables(problem.getInitialState().getInstanceVariables());
         searchSpaceTree.addNode(new Node<>(init));
 
         expandNode(searchSpaceTree, searchSpaceTree.getRoot(), domain);
