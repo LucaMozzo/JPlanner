@@ -21,6 +21,14 @@ public class Plan {
     }
 
     /**
+     * Add an action at the end of the sequence
+     * @param action the action
+     */
+    public void addAction(Action action){
+        actions.addLast(action);
+    }
+
+    /**
      * Get the plan as a sequence of actions
      * @return the plan
      */
