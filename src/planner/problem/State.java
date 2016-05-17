@@ -1,28 +1,17 @@
-package plan.problem;
+package planner.problem;
 
-import plan.domain.Domain;
-import plan.domain.Variable;
+import planner.domain.Variable;
 
 import java.util.LinkedList;
 
 /**
- * Created by LUCA on 01/05/2016.
+ * Created by LUCA on 17/05/2016.
  *
- * Represents a problem with all its components
+ * A state represents an initial state, a goal or whatever falls between these two
  */
-public class Problem {
+public class State {
 
-    private Domain domain;
     private LinkedList<Variable> variables;
-
-    /**
-     * Default constructor
-     * @param domain the domain
-     */
-    public Problem(Domain domain){
-
-        this.domain = domain;
-    }
 
     /**
      * Return all the variables of this instance
@@ -47,4 +36,5 @@ public class Problem {
                 tmpVar.setValue(value);
         }
     }
+
 }
