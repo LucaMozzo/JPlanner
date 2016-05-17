@@ -20,7 +20,7 @@ public class Effect<E> extends Fact<E> {
 
     /**
      * Apply the value change in the given problem
-     * @param problem the problem
+     * @param state the problem
      */
     public void apply(State state){
         state.setInstanceVariableValue(var, value);
