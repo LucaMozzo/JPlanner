@@ -2,6 +2,7 @@ package planner.problem;
 
 import planner.domain.Variable;
 
+import java.util.Collection;
 import java.util.LinkedList;
 
 /**
@@ -50,5 +51,14 @@ public class State {
      */
     public void addVariable(Variable var){
         variables.add(var);
+    }
+
+    /**
+     * Add a collection of variables to the list
+     * @param vars the collection of variables
+     */
+    public void addVariables(Collection<Variable> vars){
+        for(Variable v : vars)
+            variables.add(v);
     }
 }
