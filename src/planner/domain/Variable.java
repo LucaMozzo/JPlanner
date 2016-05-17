@@ -1,4 +1,4 @@
-package plan.domain;
+package planner.domain;
 
 import utils.Validation;
 

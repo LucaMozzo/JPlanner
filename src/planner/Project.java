@@ -1,16 +1,16 @@
-package plan;
+package planner;
 
-import plan.domain.Domain;
-import plan.problem.Problem;
+import planner.domain.Domain;
+import planner.problem.Problem;
 
 import java.util.LinkedList;
 
 /**
  * Created by LUCA on 04/05/2016.
  *
- * A plan has a domain and one or more problem files
+ * A planner has a domain and one or more problem files
  */
-public class Plan {
+public class Project {
 
     private Domain domain;
     private LinkedList<Problem> problems;
@@ -18,7 +18,7 @@ public class Plan {
     /**
      * Default constructor only initializes the list of problems
      */
-    public Plan(){
+    public Project(){
         problems = new LinkedList<>();
     }
 
@@ -26,7 +26,7 @@ public class Plan {
      * This overloaded constructor takes only the domain
      * @param domain the domain
      */
-    public Plan(Domain domain){
+    public Project(Domain domain){
         this.domain = domain;
     }
 
@@ -35,7 +35,7 @@ public class Plan {
      * @param domain the domain
      * @param problems the list of problems
      */
-    public Plan(Domain domain, LinkedList<Problem> problems){
+    public Project(Domain domain, LinkedList<Problem> problems){
         this.domain = domain;
         this.problems = problems;
     }
@@ -66,7 +66,7 @@ public class Plan {
     }
 
     /**
-     * Removes all the problems from the plan
+     * Removes all the problems from the planner
      */
     public void removeAll(){
         problems = new LinkedList<>();

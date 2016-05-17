@@ -1,5 +1,6 @@
-package plan.domain;
+package planner.domain;
 
+import planner.problem.Problem;
 import java.util.LinkedList;
 
 /**
@@ -17,8 +18,8 @@ public class DurativeAction extends Action {
      * @param effects the effects
      * @param duration the duration
      */
-    public DurativeAction(LinkedList<Precondition> preconditions, LinkedList<Effect> effects, float duration) {
-        super(preconditions, effects);
+    public DurativeAction(Problem problem, LinkedList<Precondition> preconditions, LinkedList<Effect> effects, float duration) {
+        super(problem, preconditions, effects);
 
         this.duration = duration;
     }

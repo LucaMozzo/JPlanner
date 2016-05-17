@@ -1,9 +1,9 @@
-package plan.domain;
+package planner.domain;
 
 /**
  * Created by LUCA on 01/05/2016.
  *
- * A data type in the plan (unique in each domain, identified by the name)
+ * A data type in the planner (unique in each domain, identified by the name)
  */
 public class Type {
 

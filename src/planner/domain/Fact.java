@@ -1,4 +1,4 @@
-package plan.domain;
+package planner.domain;
 
 /**
  * Created by LUCA on 05/05/2016.

@@ -1,6 +1,6 @@
-package plan.domain;
+package planner.domain;
 
-import plan.problem.Problem;
+import planner.problem.Problem;
 
 import java.util.LinkedList;
 
