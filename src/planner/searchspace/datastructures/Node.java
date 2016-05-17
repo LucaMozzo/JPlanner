@@ -15,7 +15,7 @@ public class Node<E> {
     private LinkedList<Node<E>> children;
 
     /**
-     * The costructor requires the element and the parent
+     * The constructor requires the element and the parent
      * @param element the element
      * @param parent the parent
      */
@@ -24,6 +24,14 @@ public class Node<E> {
         this.parent = parent;
 
         children = new LinkedList<>();
+    }
+
+    /**
+     * Constructor for a root node
+     * @param element the element
+     */
+    public Node(E element){
+        this(element, null);
     }
 
     /**
@@ -63,6 +71,15 @@ public class Node<E> {
      * @param newNode the child
      */
     public void addChildren(Node newNode){
+        newNode.setParent(this);
         children.addLast(newNode);
+    }
+
+    /**
+     * Set the parent of the node
+     * @param parent the parent
+     */
+    public void setParent(Node parent){
+        this.parent = parent;
     }
 }
