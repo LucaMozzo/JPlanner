@@ -17,7 +17,7 @@ public class Variable<E> {
      * @param name
      */
     public Variable(String name, E defaultValue){
-        if(name != null && !Validation.checkName(name))
+        if(name != null && Validation.checkName(name))
             this.name = name;
         else
             throw new IllegalArgumentException("The name of the predicate is not valid. Only numbers and characters are allowed");
