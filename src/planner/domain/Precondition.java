@@ -33,11 +33,27 @@ public class Precondition<E> extends Fact<E> {
     }
 
     /**
-     * Determines if the variable got the expected result
+     * Determines if the variable got the required attribute
+     * If the variable is not Comparable<> an exception is thrown
      * @return whether is satisfied or not
+     * @throws ClassCastException if the type of the variable is not comparable
      */
-    public boolean isSatisfied(){
-        return value.equals(var.getValue());
+    public boolean isSatisfied() throws ClassCastException{
+        switch(operator){
+            case EQUAL:
+                return value.equals(var.getValue());
+            case NOT_EQUAL:
+                return !value.equals(var.getValue());
+            case GREATER:
+                return ((Comparable<E>) var.getValue()).compareTo(value) > 0;
+            case LESS:
+                return ((Comparable<E>) var.getValue()).compareTo(value) < 0;
+            case GREATER_OR_EQUAL:
+                return ((Comparable<E>) var.getValue()).compareTo(value) >= 0;
+            case LESS_OR_EQUAL:
+                return ((Comparable<E>) var.getValue()).compareTo(value) <= 0;
+        }
+        return false;
     }
 
 }
