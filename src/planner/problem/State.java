@@ -22,6 +22,14 @@ public class State {
     }
 
     /**
+     * Overloaded constructor allows to inherit variables from another state
+     * @param vars the variables
+     */
+    public State(LinkedList<Variable> vars){
+        variables = new LinkedList<>(vars);
+    }
+
+    /**
      * Return all the variables of this instance
      * @return the variables
      */

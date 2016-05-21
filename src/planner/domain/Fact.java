@@ -20,6 +20,14 @@ public abstract class Fact<E> {
     }
 
     /**
+     * Constructor that takes only the variable
+     * @param var the variable
+     */
+    public Fact(Variable var) {
+        this.var = var;
+    }
+
+    /**
      * Getter for the variable
      * @return the variable
      */

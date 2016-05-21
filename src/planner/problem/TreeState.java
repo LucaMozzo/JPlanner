@@ -1,6 +1,9 @@
 package planner.problem;
 
 import planner.domain.Action;
+import planner.domain.Variable;
+
+import java.util.LinkedList;
 
 /**
  * Created by LUCA on 17/05/2016.
@@ -9,8 +12,8 @@ import planner.domain.Action;
  */
 public class TreeState extends State {
 
-    //we use a Plan data structure to keep track of the actions applied so far
-    private Plan actionList;
+    //keep track of the actions applied so far
+    private LinkedList<Action> actions;
 
     /**
      * If the state is a root state, it doesn't inherit any sequence of actions
@@ -18,17 +21,17 @@ public class TreeState extends State {
     public TreeState(){
         super();
 
-        actionList = new Plan();
+        actions = new LinkedList<>();
     }
 
     /**
      * In most cases we want a children in the tree to have the plan of the parent to which add more actions
      * @param parentPlan the plan of the parent
      */
-    public TreeState(Plan parentPlan){
-        super();
+    public TreeState(LinkedList<Action> parentPlan, LinkedList<Variable> vars){
+        super(vars);
 
-        actionList = parentPlan;
+        actions = new LinkedList<>(parentPlan);
     }
 
     /**
@@ -36,14 +39,22 @@ public class TreeState extends State {
      * @param action the action
      */
     public void addAction(Action action){
-        actionList.addAction(action);
+        actions.add(action);
     }
 
     /**
      * Getter for the list of actions
-     * @return the current plan
+     * @return the list of actions
      */
-    public Plan getPlan(){
-        return actionList;
+    public LinkedList<Action> getActions(){
+        return actions;
+    }
+
+    @Override
+    public String toString(){
+        String tmp = "";
+        while(actions.iterator().hasNext())
+            tmp += actions.iterator().next() + "\n";
+        return tmp;
     }
 }

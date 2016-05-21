@@ -1,6 +1,6 @@
 package planner.domain;
 
-import utils.ComparisonOperator;
+import utils.Comparisons;
 
 /**
  * Created by LUCA on 01/05/2016.
@@ -9,7 +9,7 @@ import utils.ComparisonOperator;
  */
 public class Precondition<E> extends Fact<E> {
 
-    private ComparisonOperator operator;
+    private Comparisons operator;
 
     /**
      * The constructor takes the variable and its expected value
@@ -17,7 +17,7 @@ public class Precondition<E> extends Fact<E> {
      * @param expValue the expected value
      */
     public Precondition(Variable var, E expValue){
-        this(var, expValue, ComparisonOperator.EQUAL); //by default we set the equals operator
+        this(var, expValue, Comparisons.EQUAL); //by default we set the equals operator
     }
 
     /**
@@ -26,7 +26,7 @@ public class Precondition<E> extends Fact<E> {
      * @param expValue the expected value
      * @param operator the operator
      */
-    public Precondition(Variable var, E expValue, ComparisonOperator operator){
+    public Precondition(Variable var, E expValue, Comparisons operator){
         super(var, expValue);
 
         this.operator = operator;

@@ -7,6 +7,8 @@ import planner.problem.TreeState;
 import planner.searchspace.datastructures.Node;
 import planner.searchspace.datastructures.Tree;
 
+import java.util.LinkedList;
+
 /**
  * Created by LUCA on 17/05/2016.
  *
@@ -38,13 +40,14 @@ public final class TreeBuilder{
      */
     private static Tree expandNode(Tree tree, Node<TreeState> parent, Domain domain){
         TreeState parentState = parent.getElement();
-        if(domain.getApplicableActions(parentState).isEmpty())
+        LinkedList<Action> applicableActions = domain.getApplicableActions(parentState);
+        if(applicableActions.isEmpty())
             return tree; //base case, no applicable actions
         else
         //for each possible action
-            for(Action a : domain.getApplicableActions(parentState)) {
+            for(Action a :applicableActions) {
                 //create a new state and node
-                TreeState childState = new TreeState(parentState.getPlan());
+                TreeState childState = new TreeState(parentState.getActions(), parentState.getInstanceVariables()); //the child node will inherit everything from the parent
                 Node<TreeState> node = new Node<>(childState, parent);
 
                 //apply the action and add it to the list to keep track of it

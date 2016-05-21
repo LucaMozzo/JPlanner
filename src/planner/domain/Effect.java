@@ -1,6 +1,7 @@
 package planner.domain;
 
 import planner.problem.State;
+import utils.Effects;
 
 /**
  * Created by LUCA on 01/05/2016.
@@ -9,13 +10,17 @@ import planner.problem.State;
  */
 public class Effect<E> extends Fact<E> {
 
+    Effects effect;
+
     /**
-     * The constructor takes the variable and its new value
+     * The constructor takes the variable the effect on it
      * @param var the variable
-     * @param newValue the expected value
+     * @param effect the expected value
      */
-    public Effect(Variable var, E newValue){
-        super(var, newValue);
+    public Effect(Variable var, Effects effect){
+        super(var);
+
+        this.effect = effect;
     }
 
     /**
@@ -23,7 +28,10 @@ public class Effect<E> extends Fact<E> {
      * @param state the problem
      */
     public void apply(State state){
-        state.setInstanceVariableValue(var, value);
+        switch(effect){
+            case INCREASE:
+                state.setInstanceVariableValue(var, ((Integer)var.getValue()).intValue() + 1);
+        }
     }
 
 }

@@ -21,11 +21,19 @@ public class Plan {
     }
 
     /**
+     * Overloaded constructor inherits an already existing list of actions
+     * @param actions the actions
+     */
+    public Plan(LinkedList<Action> actions){
+        this.actions = new LinkedList<>(actions);
+    }
+
+    /**
      * Add an action at the end of the sequence
      * @param action the action
      */
     public void addAction(Action action){
-        actions.addLast(action);
+        actions.add(action);
     }
 
     /**
