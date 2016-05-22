@@ -83,7 +83,10 @@ public class Tree implements NodeTree, Iterable {
                 if(currentNode == null)
                     return true; //first iteration
                 else
-                    return preorder(currentNode) != null;
+                    if(!preorder(currentNode).equals(currentNode)) //avoid repetition of the last action
+                        return preorder(currentNode) != null;
+                    else
+                        return false;
             }
 
             @Override

@@ -82,4 +82,16 @@ public class Node<E> {
     public void setParent(Node parent){
         this.parent = parent;
     }
+
+    /*
+    A node is equal to another node iff the children, element and parent are the same
+     */
+    @Override
+    public boolean equals(Object otherNode){
+        if(otherNode instanceof Node)
+            return children.equals(((Node)otherNode).getChildren()) && element.equals(((Node)otherNode).getElement())
+                    && parent.equals(((Node)otherNode).getParent());
+        else
+            return false;
+    }
 }
