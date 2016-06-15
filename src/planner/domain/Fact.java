@@ -1,11 +1,13 @@
 package planner.domain;
 
+import planner.types.DefaultDataType;
+
 /**
  * Created by LUCA on 05/05/2016.
  *
  * Abstraction of precondition (a fact that has to be true) and effect (a fact that becomes true after an action) common methods
  */
-public abstract class Fact<E> {
+public abstract class Fact<E extends DefaultDataType> {
     protected Variable<E> var;
     protected E value;
 

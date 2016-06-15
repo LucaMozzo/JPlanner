@@ -8,7 +8,7 @@ import java.util.LinkedList;
 /**
  * Created by LUCA on 17/05/2016.
  *
- * A TreeState is a State that also keeps track of the action applied from the initial state to it
+ * A TreeState is a State that also keeps track of the actions applied from the initial state to it
  */
 public class TreeState extends State {
 
