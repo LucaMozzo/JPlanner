@@ -2,6 +2,7 @@ package planner.domain;
 
 import planner.problem.Problem;
 import planner.problem.State;
+import planner.types.OperationNotSupportedException;
 
 import java.util.LinkedList;
 
@@ -79,7 +80,7 @@ public class Action {
      * Applies all the effects after it is performed
      * @param state the state on which apply the effects
      */
-    public void applyEffects(State state){
+    public void applyEffects(State state) throws OperationNotSupportedException {
         for(Effect effect : effects)
             effect.apply(state);
     }

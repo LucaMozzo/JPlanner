@@ -1,5 +1,6 @@
 package planner.domain;
 
+import planner.types.DefaultDataType;
 import utils.Comparisons;
 
 /**
@@ -7,7 +8,7 @@ import utils.Comparisons;
  *
  * A precondition is a fact that has to be satisfied in order to apply the action
  */
-public class Precondition<E> extends Fact<E> {
+public class Precondition<E extends DefaultDataType> extends Fact<E> {
 
     private Comparisons operator;
 

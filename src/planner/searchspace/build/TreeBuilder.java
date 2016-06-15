@@ -6,6 +6,7 @@ import planner.problem.Problem;
 import planner.problem.TreeState;
 import planner.searchspace.datastructures.Node;
 import planner.searchspace.datastructures.Tree;
+import planner.types.OperationNotSupportedException;
 
 import java.util.LinkedList;
 
@@ -22,7 +23,7 @@ public final class TreeBuilder{
      * @param domain the domain
      * @return the built tree
      */
-    public static Tree build(Problem problem, Domain domain){
+    public static Tree build(Problem problem, Domain domain) throws OperationNotSupportedException{
         Tree searchSpaceTree = new Tree();
 
         //the root is the initial state
@@ -38,7 +39,7 @@ public final class TreeBuilder{
     /*
     Recursive function that creates and adds States for each applicable action to the tree
      */
-    private static Tree expandNode(Tree tree, Node<TreeState> parent, Domain domain){
+    private static Tree expandNode(Tree tree, Node<TreeState> parent, Domain domain) throws OperationNotSupportedException {
         TreeState parentState = parent.getElement();
         LinkedList<Action> applicableActions = domain.getApplicableActions(parentState);
         if(applicableActions.isEmpty())

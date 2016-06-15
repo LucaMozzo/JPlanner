@@ -1,6 +1,7 @@
 package planner.problem;
 
 import planner.domain.Variable;
+import planner.types.DefaultDataType;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -42,7 +43,7 @@ public class State {
      * @param var the variable
      * @param value the new value
      */
-    public void setInstanceVariableValue(Variable var, Object value){
+    public void setInstanceVariableValue(Variable var, DefaultDataType value){
         int tmpIndex;
         //if the variable exists in the current problem
         if((tmpIndex = variables.indexOf(var)) != -1){

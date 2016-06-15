@@ -1,5 +1,6 @@
 package planner.domain;
 
+import planner.types.DefaultDataType;
 import utils.Validation;
 
 /**
@@ -7,7 +8,7 @@ import utils.Validation;
  *
  * Represents a variable (i.e. both predicates and functions in PDDL)
  */
-public class Variable<E> {
+public class Variable<E extends DefaultDataType> {
 
     private String name;
     private E value;
