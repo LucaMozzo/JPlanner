@@ -40,7 +40,7 @@ public class Double extends DefaultDataType implements  Comparable<Double> {
     }
     
     @Override
-    public void onSum(NumericDataType toSum) throws ClassCastException{
+    public void onSum(DataType toSum) throws ClassCastException{
         if(toSum instanceof Double)
             value += ((Double)toSum).value;
         else if(toSum instanceof Integer)
@@ -50,7 +50,7 @@ public class Double extends DefaultDataType implements  Comparable<Double> {
     }
     
     @Override
-    public void onSubtract(NumericDataType toSub) throws ClassCastException{
+    public void onSubtract(DataType toSub) throws ClassCastException{
         if(toSub instanceof Double)
             value -= ((Double)toSub).value;
         else if(toSub instanceof Integer)
@@ -60,7 +60,7 @@ public class Double extends DefaultDataType implements  Comparable<Double> {
     }
     
     @Override
-    public void onMultiply(NumericDataType toMult) throws ClassCastException{
+    public void onMultiply(DataType toMult) throws ClassCastException{
         if(toMult instanceof Double)
             value *= ((Double)toMult).value;
         else if(toMult instanceof Integer)
@@ -70,7 +70,7 @@ public class Double extends DefaultDataType implements  Comparable<Double> {
     }
 
     @Override
-    public void onDivide(NumericDataType toDiv) throws ClassCastException{
+    public void onDivide(DataType toDiv) throws ClassCastException{
         if(toDiv instanceof Double)
             value /= ((Double)toDiv).value;
         else if(toDiv instanceof Integer)
@@ -90,7 +90,7 @@ public class Double extends DefaultDataType implements  Comparable<Double> {
     }
     
     @Override
-    public void onPower(NumericDataType index) throws ClassCastException{
+    public void onPower(DataType index) throws ClassCastException{
         if(index instanceof Double)
             Math.pow(value, ((Double)index).getValue());
         else if(index instanceof Integer)

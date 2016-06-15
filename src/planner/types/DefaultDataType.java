@@ -18,22 +18,22 @@ public abstract class DefaultDataType implements NumericDataType {
     }
 
     @Override
-    public void onSum(NumericDataType value) throws OperationNotSupportedException {
+    public void onSum(DataType value) throws OperationNotSupportedException {
         throw new OperationNotSupportedException("This data type doesn't support the operation \"sum\"");
     }
 
     @Override
-    public void onSubtract(NumericDataType value) throws OperationNotSupportedException {
+    public void onSubtract(DataType value) throws OperationNotSupportedException {
         throw new OperationNotSupportedException("This data type doesn't support the operation \"subtract\"");
     }
 
     @Override
-    public void onMultiply(NumericDataType value) throws OperationNotSupportedException {
+    public void onMultiply(DataType value) throws OperationNotSupportedException {
         throw new OperationNotSupportedException("This data type doesn't support the operation \"multiply\"");
     }
 
     @Override
-    public void onDivide(NumericDataType value) throws OperationNotSupportedException {
+    public void onDivide(DataType value) throws OperationNotSupportedException {
         throw new OperationNotSupportedException("This data type doesn't support the operation \"divide\"");
     }
 
@@ -48,7 +48,7 @@ public abstract class DefaultDataType implements NumericDataType {
     }
 
     @Override
-    public void onPower(NumericDataType value) throws OperationNotSupportedException {
+    public void onPower(DataType value) throws OperationNotSupportedException {
         throw new OperationNotSupportedException("This data type doesn't support the operation \"power\"");
     }
 

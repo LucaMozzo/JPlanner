@@ -20,25 +20,25 @@ public interface NumericDataType extends DataType{
      * When sum is applied on the data type
      * @param value the value to sum
      */
-    void onSum(NumericDataType value) throws OperationNotSupportedException;
+    void onSum(DataType value) throws OperationNotSupportedException;
 
     /**
      * When subtract is applied on the data type
      * @param value the value to subtract
      */
-    void onSubtract(NumericDataType value) throws OperationNotSupportedException;
+    void onSubtract(DataType value) throws OperationNotSupportedException;
 
     /**
      * When multiply is applied on the data type
      * @param value the value by which multiply
      */
-    void onMultiply(NumericDataType value) throws OperationNotSupportedException;
+    void onMultiply(DataType value) throws OperationNotSupportedException;
 
     /**
      * When divide is applied on the data type
      * @param value the value by which divide
      */
-    void onDivide(NumericDataType value) throws OperationNotSupportedException;
+    void onDivide(DataType value) throws OperationNotSupportedException;
 
     /**
      * When square is applied on the data type
@@ -54,5 +54,5 @@ public interface NumericDataType extends DataType{
      * When power is applied on the data type
      * @param value the index of the power
      */
-    void onPower(NumericDataType value) throws OperationNotSupportedException;
+    void onPower(DataType value) throws OperationNotSupportedException;
 }

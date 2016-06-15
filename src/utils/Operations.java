@@ -6,5 +6,17 @@ package utils;
  * A set of operations on default data types
  */
 public enum Operations {
-    INCREASE, DECREASE, ASSIGN, MULTIPLY, DIVIDE, SUM, SUBTRACT, SQUARE, SQRT, POWER, SET_TRUE, SET_FALSE
+    INCREASE("Increase"), DECREASE("Decrease"), ASSIGN("Assign"), MULTIPLY("Multiply"), DIVIDE("Divide"), SUM("Sum"), SUBTRACT("Subtract"),
+    SQUARE("Square"), SQRT("Square root"), POWER("Power"), SET_TRUE("Set true"), SET_FALSE("Set false");
+
+    private String name;
+
+    //used to print the name of the operation
+    private Operations(String name){
+        this.name = name;
+    }
+
+    public String toString(){
+        return name;
+    }
 }

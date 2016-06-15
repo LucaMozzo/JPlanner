@@ -40,7 +40,7 @@ public class Integer extends DefaultDataType implements Comparable<Integer>{
     }
 
     @Override
-    public void onSum(NumericDataType toSum) throws ClassCastException{
+    public void onSum(DataType toSum) throws ClassCastException{
         if(toSum instanceof Integer)
             value += ((Integer)toSum).value;
         else
@@ -48,7 +48,7 @@ public class Integer extends DefaultDataType implements Comparable<Integer>{
     }
 
     @Override
-    public void onSubtract(NumericDataType toSub) throws ClassCastException{
+    public void onSubtract(DataType toSub) throws ClassCastException{
         if(toSub instanceof Integer)
             value -= ((Integer)toSub).value;
         else
@@ -56,7 +56,7 @@ public class Integer extends DefaultDataType implements Comparable<Integer>{
     }
 
     @Override
-    public void onMultiply(NumericDataType toMult) throws ClassCastException{
+    public void onMultiply(DataType toMult) throws ClassCastException{
         if(toMult instanceof Integer)
             value *= ((Integer)toMult).value;
         else
@@ -64,7 +64,7 @@ public class Integer extends DefaultDataType implements Comparable<Integer>{
     }
 
     @Override
-    public void onDivide(NumericDataType toDiv) throws ClassCastException{
+    public void onDivide(DataType toDiv) throws ClassCastException{
         if(toDiv instanceof Integer)
             value /= ((Integer)toDiv).value;
         else
@@ -77,7 +77,7 @@ public class Integer extends DefaultDataType implements Comparable<Integer>{
     }
 
     @Override
-    public void onPower(NumericDataType index) throws ClassCastException{
+    public void onPower(DataType index) throws ClassCastException{
         //we only allow indexes > 0 for integer types
         if(index instanceof Integer && ((Integer)index).value >= 0)
             Math.pow(value, ((Integer)index).value);
