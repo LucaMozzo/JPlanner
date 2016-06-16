@@ -58,29 +58,40 @@ public class Effect<E extends DefaultDataType> extends Fact<E> {
         switch(operation){
             case INCREASE:
                 ((NumericDataType)var.getValue()).onIncrease();
+                break;
             case DECREASE:
                 ((NumericDataType)var.getValue()).onDecrease();
+                break;
             case SUM:
                 ((NumericDataType)var.getValue()).onSum(argument);
+                break;
             case SUBTRACT:
                 ((NumericDataType)var.getValue()).onSubtract(argument);
+                break;
             case MULTIPLY:
                 ((NumericDataType)var.getValue()).onMultiply(argument);
+                break;
             case DIVIDE:
                 ((NumericDataType)var.getValue()).onDivide(argument);
+                break;
             case ASSIGN:
                 ((NumericDataType)var.getValue()).onAssign(argument);
+                break;
             case SQRT:
                 ((NumericDataType)var.getValue()).onSqrt();
+                break;
             case SQUARE:
                 ((NumericDataType)var.getValue()).onSquare();
+                break;
             case POWER:
                 ((NumericDataType)var.getValue()).onPower(argument);
+                break;
             case SET_TRUE:
                 ((DataType)var.getValue()).onSetTrue();
+                break;
             case SET_FALSE:
                 ((DataType)var.getValue()).onSetFalse();
+                break;
         }
     }
-
 }
