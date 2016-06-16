@@ -29,6 +29,32 @@ public class Action {
     }
 
     /**
+     * Constructor that takes no preconditions and effects
+     * @param name the name
+     */
+    public Action(String name){
+        preconditions = new LinkedList<>();
+        effects = new LinkedList<>();
+        this.name = name;
+    }
+
+    /**
+     * Allows to add a precondition to the list
+     * @param precondition the precondition to be added
+     */
+    public void addPrecondition(Precondition precondition){
+        preconditions.addLast(precondition);
+    }
+
+    /**
+     * Allows to add an effect to the list
+     * @param effect the effect to be added
+     */
+    public void addEffect(Effect effect){
+        effects.addLast(effect);
+    }
+
+    /**
      * Getter for the preconditions
      * @return the preconditions
      */
