@@ -73,41 +73,34 @@ public class Tree implements NodeTree, Iterable {
 
         Iterator iterator = new Iterator() {
 
-            private Node currentNode = null;
+            private Node currentNode = root;
             private Stack<Node> stack = new Stack<>();
 
             @Override
             public boolean hasNext() {
                 if(currentNode == null)
-                    return true; //first iteration
+                    return false; //first iteration
                 else
-                    if(!preorder(currentNode).equals(currentNode)) //avoid repetition of the last action
-                        return preorder(currentNode) != null;
-                    else
-                        return false;
+                    return preorder(currentNode) != null;
             }
 
             @Override
             public Node next() {
-                if(currentNode == null) {
-                    stack.push(root);
-                    return currentNode = root; //the first call
-                }
+                if(currentNode == null)
+                    return null;
                 else {
-                    //prevent the currentNode to become null when the tree has finished (can be confused with the 1st iteration)
-                    currentNode = (preorder(currentNode) == null ? currentNode : preorder(currentNode));
-                    return currentNode;
+                    return currentNode = (preorder(currentNode) == null ? null : preorder(currentNode));
                 }
             }
 
             private Node preorder(Node prev){
-                if(!stack.isEmpty())
+                if(!stack.isEmpty() || currentNode == root)
                     if(prev.isLeaf()){ //get siblings/backtrack
                         return stack.pop();
                     }
                     else{
                         //push all the children of the current node and pop the first
-                        for(Node child : (ArrayList<Node>)prev.getChildren()){
+                        for(Node child : (ArrayList<Node>)prev.getChildrenReverse()){
                                 stack.push(child);
                         }
                         return stack.pop();
