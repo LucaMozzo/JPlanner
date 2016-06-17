@@ -72,8 +72,8 @@ public class Tree implements NodeTree, Iterable {
          */
 
         Iterator iterator = new Iterator() {
-
-            private Node currentNode = root;
+            private boolean rootVisited = false;
+            private Node currentNode = null;
             private Stack<Node> stack = new Stack<>();
 
             @Override
@@ -94,7 +94,7 @@ public class Tree implements NodeTree, Iterable {
             }
 
             private Node preorder(Node prev){
-                if(!stack.isEmpty() || currentNode == root)
+                if(!stack.isEmpty())
                     if(prev.isLeaf()){ //get siblings/backtrack
                         return stack.pop();
                     }
