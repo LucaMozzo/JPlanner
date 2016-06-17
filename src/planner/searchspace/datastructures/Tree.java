@@ -1,9 +1,6 @@
 package planner.searchspace.datastructures;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by LUCA on 17/05/2016.
@@ -34,6 +31,7 @@ public class Tree implements NodeTree, Iterable {
      */
     public void addNode(Node newNode, Node parent){
         parent.addChildren(newNode);
+        newNode.setParent(parent);
         ++size;
     }
 
@@ -96,7 +94,7 @@ public class Tree implements NodeTree, Iterable {
                     return currentNode = root; //the first call
                 }
                 else {
-                    //prevent the currentNode to become null when the tree has finished (can be confused with th1st iteration)
+                    //prevent the currentNode to become null when the tree has finished (can be confused with the 1st iteration)
                     currentNode = (preorder(currentNode) == null ? currentNode : preorder(currentNode));
                     return currentNode;
                 }
@@ -109,8 +107,9 @@ public class Tree implements NodeTree, Iterable {
                     }
                     else{
                         //push all the children of the current node and pop the first
-                        for(Node child : (LinkedList<Node>)prev.getChildren())
-                            stack.push(child);
+                        for(Node child : (ArrayList<Node>)prev.getChildren()){
+                                stack.push(child);
+                        }
                         return stack.pop();
                     }
                 else
