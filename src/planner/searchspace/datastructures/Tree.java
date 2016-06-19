@@ -1,9 +1,6 @@
 package planner.searchspace.datastructures;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by LUCA on 17/05/2016.
@@ -34,6 +31,7 @@ public class Tree implements NodeTree, Iterable {
      */
     public void addNode(Node newNode, Node parent){
         parent.addChildren(newNode);
+        newNode.setParent(parent);
         ++size;
     }
 
@@ -74,47 +72,41 @@ public class Tree implements NodeTree, Iterable {
          */
 
         Iterator iterator = new Iterator() {
-
-            private Node currentNode = null;
+            private boolean rootVisited = false;
+            private int visited = 0;
+            private Node currentNode = root;
             private Stack<Node> stack = new Stack<>();
 
             @Override
             public boolean hasNext() {
-                if(currentNode == null)
-                    return true; //first iteration
-                else
-                    if(!preorder(currentNode).equals(currentNode)) //avoid repetition of the last action
-                        return preorder(currentNode) != null;
-                    else
-                        return false;
+                return visited < size - 1;
             }
 
             @Override
             public Node next() {
-                if(currentNode == null) {
-                    stack.push(root);
-                    return currentNode = root; //the first call
-                }
-                else {
-                    //prevent the currentNode to become null when the tree has finished (can be confused with th1st iteration)
-                    currentNode = (preorder(currentNode) == null ? currentNode : preorder(currentNode));
-                    return currentNode;
-                }
+                if(currentNode == null)
+                    return null;
+                else
+                    return currentNode = (preorder(currentNode));
             }
 
             private Node preorder(Node prev){
-                if(!stack.isEmpty())
-                    if(prev.isLeaf()){ //get siblings/backtrack
-                        return stack.pop();
+                if(prev.isLeaf() && !stack.isEmpty()){ //get siblings/backtrack
+                    ++visited;
+                    return stack.pop();
+                }
+                else {
+                    if(prev == root && !rootVisited) {
+                        rootVisited = true;
+                        return root;
                     }
-                    else{
-                        //push all the children of the current node and pop the first
-                        for(Node child : (LinkedList<Node>)prev.getChildren())
-                            stack.push(child);
-                        return stack.pop();
+                    //push all the children of the current node and pop the first
+                    for(Node child : (ArrayList<Node>)prev.getChildrenReverse()){
+                        stack.push(child);
                     }
-                else
-                    return null;
+                    ++visited;
+                    return stack.isEmpty() ? null : stack.pop();
+                }
             }
         };
         return iterator;

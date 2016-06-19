@@ -1,6 +1,6 @@
 package planner.searchspace.datastructures;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  * Created by LUCA on 17/05/2016.
@@ -12,26 +12,15 @@ public class Node<E> {
     protected E element;
 
     private Node parent;
-    private LinkedList<Node<E>> children;
+    private ArrayList<Node<E>> children; //we use an array because when reversing, it takes less
 
     /**
-     * The constructor requires the element and the parent
-     * @param element the element
-     * @param parent the parent
-     */
-    public Node(E element, Node parent){
-        this.element = element;
-        this.parent = parent;
-
-        children = new LinkedList<>();
-    }
-
-    /**
-     * Constructor for a root node
+     * The constructor sets the element and initialises the children array
      * @param element the element
      */
     public Node(E element){
-        this(element, null);
+        this.element = element;
+        children = new ArrayList<>();
     }
 
     /**
@@ -54,8 +43,20 @@ public class Node<E> {
      * Getter for the children
      * @return the list of children
      */
-    public LinkedList<Node<E>> getChildren(){
+    public ArrayList<Node<E>> getChildren(){
         return children;
+    }
+
+    /**
+     * Getter for the children from last to first
+     * @return the reversed list of children
+     */
+    public ArrayList<Node<E>> getChildrenReverse(){
+        ArrayList<Node<E>> temp = new ArrayList<>();
+
+        for(int i = children.size() - 1; i >= 0; --i)
+            temp.add(children.get(i));
+        return temp;
     }
 
     /**
@@ -72,7 +73,7 @@ public class Node<E> {
      */
     public void addChildren(Node newNode){
         newNode.setParent(this);
-        children.addLast(newNode);
+        children.add(newNode);
     }
 
     /**

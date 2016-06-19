@@ -23,7 +23,7 @@ public final class TreeBuilder{
      * @param domain the domain
      * @return the built tree
      */
-    public static Tree build(Problem problem, Domain domain) throws OperationNotSupportedException{
+    public static Tree build(Problem problem, Domain domain) throws OperationNotSupportedException, StackOverflowError{
         Tree searchSpaceTree = new Tree();
 
         //the root is the initial state
@@ -44,12 +44,14 @@ public final class TreeBuilder{
         LinkedList<Action> applicableActions = domain.getApplicableActions(parentState);
         if(applicableActions.isEmpty())
             return tree; //base case, no applicable actions
-        else
-        //for each possible action
-            for(Action a :applicableActions) {
+        else {
+            //for each possible action
+            Node<TreeState> node = null;
+
+            for (Action a : applicableActions) {
                 //create a new state and node
                 TreeState childState = new TreeState(parentState.getActions(), parentState.getInstanceVariables()); //the child node will inherit everything from the parent
-                Node<TreeState> node = new Node<>(childState, parent);
+                node = new Node<>(childState);
 
                 //apply the action and add it to the list to keep track of it
                 childState.addAction(a);
@@ -57,10 +59,9 @@ public final class TreeBuilder{
 
                 //add the node to the tree
                 tree.addNode(node, parent);
-
-                //recur
-                return expandNode(tree, node, domain);
             }
-        return null;
+            //recur
+            return expandNode(tree, node, domain);
+        }
     }
 }
