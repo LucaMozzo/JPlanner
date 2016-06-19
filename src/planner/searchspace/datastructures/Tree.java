@@ -73,40 +73,40 @@ public class Tree implements NodeTree, Iterable {
 
         Iterator iterator = new Iterator() {
             private boolean rootVisited = false;
-            private Node currentNode = null;
+            private int visited = 0;
+            private Node currentNode = root;
             private Stack<Node> stack = new Stack<>();
 
             @Override
             public boolean hasNext() {
-                if(currentNode == null)
-                    return false; //first iteration
-                else
-                    return preorder(currentNode) != null;
+                return visited < size - 1;
             }
 
             @Override
             public Node next() {
                 if(currentNode == null)
                     return null;
-                else {
-                    return currentNode = (preorder(currentNode) == null ? null : preorder(currentNode));
-                }
+                else
+                    return currentNode = (preorder(currentNode));
             }
 
             private Node preorder(Node prev){
-                if(!stack.isEmpty())
-                    if(prev.isLeaf()){ //get siblings/backtrack
-                        return stack.pop();
+                if(prev.isLeaf() && !stack.isEmpty()){ //get siblings/backtrack
+                    ++visited;
+                    return stack.pop();
+                }
+                else {
+                    if(prev == root && !rootVisited) {
+                        rootVisited = true;
+                        return root;
                     }
-                    else{
-                        //push all the children of the current node and pop the first
-                        for(Node child : (ArrayList<Node>)prev.getChildrenReverse()){
-                                stack.push(child);
-                        }
-                        return stack.pop();
+                    //push all the children of the current node and pop the first
+                    for(Node child : (ArrayList<Node>)prev.getChildrenReverse()){
+                        stack.push(child);
                     }
-                else
-                    return null;
+                    ++visited;
+                    return stack.isEmpty() ? null : stack.pop();
+                }
             }
         };
         return iterator;
