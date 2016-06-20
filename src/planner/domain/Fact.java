@@ -8,33 +8,25 @@ import planner.types.DefaultDataType;
  * Abstraction of precondition (a fact that has to be true) and operation (a fact that becomes true after an action) common methods
  */
 public abstract class Fact<E extends DefaultDataType> {
-    protected Variable<E> var;
+    protected String varName;
     protected E value;
 
     /**
      * The constructor takes the variable and a value
-     * @param var the variable
+     * @param varName the variable name
      * @param value the expected value
      */
-    public Fact(Variable var, E value) {
+    public Fact(String varName, E value) {
         this.value = value;
-        this.var = var;
+        this.varName = varName;
     }
 
     /**
      * Constructor that takes only the variable
-     * @param var the variable
+     * @param varName the variable name
      */
-    public Fact(Variable var) {
-        this.var = var;
-    }
-
-    /**
-     * Getter for the variable
-     * @return the variable
-     */
-    public Variable getVariable(){
-        return var;
+    public Fact(String varName) {
+        this.varName = varName;
     }
 
     /**
@@ -42,7 +34,7 @@ public abstract class Fact<E extends DefaultDataType> {
      * @return the name of the variable
      */
     public String getVariableName(){
-        return var.getName();
+        return varName;
     }
 
     /**
@@ -55,10 +47,10 @@ public abstract class Fact<E extends DefaultDataType> {
 
     /**
      * Setter for the variable
-     * @param newVariable the new variable
+     * @param newVariableName the new variable name
      */
-    public void setVariable(Variable newVariable){
-        this.var = newVariable;
+    public void setVariableName(String newVariableName){
+        this.varName = newVariableName;
     }
 
     /**
@@ -71,6 +63,6 @@ public abstract class Fact<E extends DefaultDataType> {
 
     @Override
     public String toString(){
-        return "[\"" + var.getName() + "\" : " + value.toString();
+        return "[\"" + varName + "\" : " + value.toString();
     }
 }

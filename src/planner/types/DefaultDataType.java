@@ -66,4 +66,10 @@ public abstract class DefaultDataType implements NumericDataType {
     public void onSetFalse() throws OperationNotSupportedException {
         throw new OperationNotSupportedException("This data type doesn't support the operation \"set false\"");
     }
+
+    /**
+     * Creates a value-copy of the object which is deferenced from it
+     * @return the copy
+     */
+    public abstract DefaultDataType copyByValue();
 }

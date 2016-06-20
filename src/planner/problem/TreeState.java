@@ -52,9 +52,18 @@ public class TreeState extends State {
 
     @Override
     public String toString(){
-        String tmp = "";
-        while(actions.iterator().hasNext())
-            tmp += actions.iterator().next() + "\n";
-        return tmp;
+        String tmp = "Actions: [";
+        String tmp2 = "Variables: [";
+
+        for(Action a : actions)
+            tmp += a + ", ";
+
+        for(Variable v : getInstanceVariables())
+            tmp2 += v + ", ";
+
+        tmp = tmp.length() > 11 ? tmp.substring(0, tmp.length() - 2) + "]" : tmp + "]";
+        tmp2 = tmp2.length() > 13 ? tmp2.substring(0, tmp2.length() - 2) + "]" : tmp2 + "]";
+
+        return tmp2 + " " + tmp;
     }
 }

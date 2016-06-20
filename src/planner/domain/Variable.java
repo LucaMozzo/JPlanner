@@ -15,7 +15,9 @@ public class Variable<E extends DefaultDataType> {
 
     /**
      * The constructor gives a name to the value and sets it to default
-     * @param name
+     * When giving a
+     * @param name the name
+     * @param defaultValue the value
      */
     public Variable(String name, E defaultValue){
         if(name != null && Validation.checkName(name))
@@ -23,7 +25,7 @@ public class Variable<E extends DefaultDataType> {
         else
             throw new IllegalArgumentException("The name of the predicate is not valid. Only numbers and characters are allowed");
 
-        value = defaultValue;
+        value = (E)((DefaultDataType)defaultValue).copyByValue(); //to avoid parent-children variable referencing causing errors in the program
     }
 
     /**
@@ -62,6 +64,6 @@ public class Variable<E extends DefaultDataType> {
 
     @Override
     public String toString(){
-        return "[\"" + name + "\" : " + value;
+        return "[\"" + name + "\" : " + value + "]";
     }
 }

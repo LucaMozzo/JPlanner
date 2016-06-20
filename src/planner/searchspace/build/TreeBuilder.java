@@ -3,6 +3,7 @@ package planner.searchspace.build;
 import planner.domain.Action;
 import planner.domain.Domain;
 import planner.problem.Problem;
+import planner.problem.State;
 import planner.problem.TreeState;
 import planner.searchspace.datastructures.Node;
 import planner.searchspace.datastructures.Tree;
@@ -27,11 +28,10 @@ public final class TreeBuilder{
         Tree searchSpaceTree = new Tree();
 
         //the root is the initial state
-        TreeState init = new TreeState();
-        init.addVariables(problem.getInitialState().getInstanceVariables());
+        TreeState init = State.convertToTreeState(problem.getInitialState());
         searchSpaceTree.addNode(new Node<>(init));
 
-        expandNode(searchSpaceTree, searchSpaceTree.getRoot(), domain);
+        searchSpaceTree = expandNode(searchSpaceTree, searchSpaceTree.getRoot(), domain);
 
         return searchSpaceTree;
     }
@@ -46,12 +46,10 @@ public final class TreeBuilder{
             return tree; //base case, no applicable actions
         else {
             //for each possible action
-            Node<TreeState> node = null;
-
             for (Action a : applicableActions) {
                 //create a new state and node
                 TreeState childState = new TreeState(parentState.getActions(), parentState.getInstanceVariables()); //the child node will inherit everything from the parent
-                node = new Node<>(childState);
+                Node<TreeState> node = new Node<>(childState);
 
                 //apply the action and add it to the list to keep track of it
                 childState.addAction(a);
@@ -59,9 +57,11 @@ public final class TreeBuilder{
 
                 //add the node to the tree
                 tree.addNode(node, parent);
+
+                //recur
+                expandNode(tree, node, domain);
             }
-            //recur
-            return expandNode(tree, node, domain);
         }
+        return tree;
     }
 }

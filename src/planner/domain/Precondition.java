@@ -1,5 +1,6 @@
 package planner.domain;
 
+import planner.problem.State;
 import planner.types.DefaultDataType;
 import utils.Comparisons;
 
@@ -14,21 +15,21 @@ public class Precondition<E extends DefaultDataType> extends Fact<E> {
 
     /**
      * The constructor takes the variable and its expected value
-     * @param var the variable
+     * @param varName the variable name
      * @param expValue the expected value
      */
-    public Precondition(Variable var, E expValue){
-        this(var, expValue, Comparisons.EQUAL); //by default we set the equals operator
+    public Precondition(String varName, E expValue){
+        this(varName, expValue, Comparisons.EQUAL); //by default we set the equals operator
     }
 
     /**
      * The constructor takes the variable, its expected value and the operator
-     * @param var the variable
+     * @param varName the variable name
      * @param expValue the expected value
      * @param operator the operator
      */
-    public Precondition(Variable var, E expValue, Comparisons operator){
-        super(var, expValue);
+    public Precondition(String varName, E expValue, Comparisons operator){
+        super(varName, expValue);
 
         this.operator = operator;
     }
@@ -36,10 +37,12 @@ public class Precondition<E extends DefaultDataType> extends Fact<E> {
     /**
      * Determines if the variable got the required attribute
      * If the variable is not Comparable<> an exception is thrown
+     * @param state the current state
      * @return whether is satisfied or not
      * @throws ClassCastException if the type of the variable is not comparable
      */
-    public boolean isSatisfied() throws ClassCastException{
+    public boolean isSatisfied(State state) throws ClassCastException{
+        Variable var = state.getVariableByName(varName);
         switch(operator){
             case EQUAL:
                 return value.equals(var.getValue());

@@ -107,4 +107,9 @@ public class Integer extends DefaultDataType implements Comparable<Integer>{
     public int compareTo(Integer other) {
         return value - other.value;
     }
+
+    @Override
+    public Integer copyByValue(){
+        return new Integer(value);
+    }
 }

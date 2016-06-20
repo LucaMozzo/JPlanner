@@ -5,6 +5,7 @@ import planner.types.DataType;
 import planner.types.DefaultDataType;
 import planner.types.NumericDataType;
 import planner.types.OperationNotSupportedException;
+import planner.types.standard.Integer;
 import utils.Operations;
 import utils.Validation;
 
@@ -20,10 +21,10 @@ public class Effect<E extends DefaultDataType> extends Fact<E> {
 
     /**
      * The constructor takes the variable the operation on it
-     * @param var the variable
+     * @param var the variable name
      * @param operation the expected value
      */
-    public Effect(Variable var, Operations operation){
+    public Effect(String var, Operations operation){
         super(var);
 
         this.operation = operation;
@@ -35,11 +36,11 @@ public class Effect<E extends DefaultDataType> extends Fact<E> {
 
     /**
      * The constructor takes the variable the operation on it and an argument
-     * @param var the variable
+     * @param var the variable name
      * @param operation the expected value
      * @param arg the argument
      */
-    public Effect(Variable var, Operations operation, DataType arg){
+    public Effect(String var, Operations operation, DataType arg){
         super(var);
 
         this.operation = operation;
@@ -55,6 +56,7 @@ public class Effect<E extends DefaultDataType> extends Fact<E> {
      * @param state the problem
      */
     public void apply(State state) throws OperationNotSupportedException {
+        Variable var = state.getVariableByName(varName);
         switch(operation){
             case INCREASE:
                 ((NumericDataType)var.getValue()).onIncrease();

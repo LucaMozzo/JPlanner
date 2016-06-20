@@ -46,4 +46,9 @@ public class Boolean extends DefaultDataType {
     public String toString(){
         return value == true ? "true" : "false";
     }
+
+    @Override
+    public Boolean copyByValue(){
+        return new Boolean(value);
+    }
 }

@@ -77,10 +77,14 @@ public class Action {
      */
     public boolean isApplicable(State state){
         LinkedList<Variable> temp; //will temporary store instance variables of the problem
+        Variable var = null;
 
         for(Precondition precondition : preconditions) {
             temp = state.getInstanceVariables();
-            int index = temp.indexOf(precondition.getVariable());
+
+            var = state.getVariableByName(precondition.getVariableName());
+
+            int index = temp.indexOf(var);
             Variable tmpVar;
 
             //check if the precondition variable is declared in the problem
@@ -94,7 +98,7 @@ public class Action {
                 to avoid users' mistakes, whereas the second checks whether the current value of the variable
                 satisfies the expected value of the precondition
              */
-            if(precondition.getVariable().equals(tmpVar) && precondition.isSatisfied())
+            if(var.getName().equals(tmpVar.getName()) && precondition.isSatisfied(state))
                 continue;
             else
                 return false;
