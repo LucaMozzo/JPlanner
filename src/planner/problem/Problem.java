@@ -1,7 +1,11 @@
 package planner.problem;
 
+import planner.domain.Action;
 import planner.domain.Domain;
-import planner.domain.Variable;
+import planner.searchspace.build.TreeBuilder;
+import planner.searchspace.datastructures.Tree;
+import planner.searchspace.search.DFS;
+import planner.types.OperationNotSupportedException;
 
 import java.util.LinkedList;
 
@@ -70,6 +74,12 @@ public class Problem {
         goalState = newState;
     }
 
-    /*TODO public Plan solve(){
-    }*/
+    /**
+     * Solves the current problem
+     * @return the plan
+     */
+    public LinkedList<Action> solve() throws OperationNotSupportedException {
+        Tree searchspace = TreeBuilder.build(this, domain);
+        return DFS.search(searchspace, State.convertToTreeState(goalState));
+    }
 }

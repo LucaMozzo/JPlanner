@@ -1,7 +1,9 @@
 package planner;
 
+import planner.domain.Action;
 import planner.domain.Domain;
 import planner.problem.Problem;
+import planner.types.OperationNotSupportedException;
 
 import java.util.LinkedList;
 
@@ -72,7 +74,16 @@ public class Project {
         problems = new LinkedList<>();
     }
 
-    public void solveAll(){
+    /**
+     * Solves all the problems in the project
+     * @return the solutions
+     */
+    public LinkedList<LinkedList<Action>> solveAll() throws OperationNotSupportedException {
+        LinkedList<LinkedList<Action>> solutions = new LinkedList<>();
 
+        for(Problem p : problems)
+            solutions.add(p.solve());
+
+        return solutions;
     }
 }
