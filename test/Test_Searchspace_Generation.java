@@ -16,20 +16,20 @@ import java.util.LinkedList;
 /**
  * Created by LUCA on 18/05/2016.
  */
-public class Test {
+public class Test_Searchspace_Generation {
 
     public static void main(String[] args) throws OperationNotSupportedException {
 
-        Tree plan = createPlan();
-        System.out.println("Explored " + plan.getSize() + " nodes");
+        Tree searchspace = createPlan();
+        System.out.println("Explored " + searchspace.getSize() + " nodes");
 
-        Iterator it = plan.iterator();
+        Iterator it = searchspace.iterator();
 
         while(it.hasNext())
             System.out.println("\n" + ((TreeState)((Node)it.next()).getElement()).getActions());
     }
 
-    private static Tree createPlan() throws OperationNotSupportedException {
+    public static Tree createPlan() throws OperationNotSupportedException {
         Variable<Integer> btnPressedVar = new Variable<>("btnPressed", new Integer(0));
         Variable<Integer> btn2PressedVar = new Variable<>("btn2Pressed", new Integer(0));
 
@@ -55,14 +55,9 @@ public class Test {
         init.addVariable(btnPressedVar);
         init.addVariable(btn2PressedVar);
 
-        State goal = new State();
-        goal.addVariable(new Variable<Integer>("btnPressed", new Integer(1)));
-        goal.addVariable(new Variable<Integer>("btn2Pressed", new Integer(2)));
-
         Problem problem1 = new Problem(domain);
         problem1.setInitialState(init);
-        problem1.setGoalState(goal);
 
-        return TreeBuilder.build(problem1, domain); //TODO stop the construction of the searchspace when you find the goal
+        return TreeBuilder.build(problem1, domain);
     }
 }

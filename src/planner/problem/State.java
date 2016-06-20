@@ -4,6 +4,7 @@ import planner.domain.Variable;
 import planner.types.DefaultDataType;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -13,7 +14,7 @@ import java.util.LinkedList;
  */
 public class State {
 
-    private LinkedList<Variable> variables;
+    protected LinkedList<Variable> variables;
 
     /**
      * The constructor initializes the list of variables
@@ -104,5 +105,26 @@ public class State {
         for(Variable v : variables)
             tmp += v + ", ";
         return tmp.length() > 13 ? tmp.substring(0, tmp.length() - 2) + "]" : tmp + "]";
+    }
+
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof State){
+            //checking the size first saves time if it's not necessary to loop through the array
+            if(variables.size() != ((State) other).variables.size())
+                return false;
+
+            Iterator iterator = variables.iterator();
+            Iterator otherIterator = ((State) other).variables.iterator();
+
+            while(iterator.hasNext()){
+                if(!iterator.next().equals(otherIterator.next()))
+                    return false;
+            }
+
+            return true;
+        }
+        else
+            return false;
     }
 }
