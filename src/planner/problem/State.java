@@ -62,7 +62,10 @@ public class State {
      * Add a variable to the list
      * @param var the variable
      */
-    public void addVariable(Variable var){
+    public void addVariable(Variable var) throws Exception{
+        for(Variable v : variables)
+            if(v.getName().equals(var.getName()))
+                throw new Exception("No 2 variables can have the same name");
         variables.add(var);
     }
 
