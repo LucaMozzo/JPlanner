@@ -74,12 +74,37 @@ public class Problem {
         goalState = newState;
     }
 
+    //time spent building the tree in the last execution
+    private long timeBuildingTree = 0;
+    //time spent searching the tree in the last execution
+    private long timeSearching = 0;
+
     /**
      * Solves the current problem
      * @return the plan
      */
     public LinkedList<Action> solve() throws OperationNotSupportedException {
+        long start = System.currentTimeMillis();
         Tree searchspace = TreeBuilder.build(this, domain);
-        return DFS.search(searchspace, State.convertToTreeState(goalState));
+        timeBuildingTree = System.currentTimeMillis() - start;
+
+        start = System.currentTimeMillis();
+        LinkedList<Action> tmp = DFS.search(searchspace, State.convertToTreeState(goalState));
+        timeSearching = System.currentTimeMillis() - start;
+
+        return tmp;
     }
+
+    /**
+     * Returns the time spent for building the tree and searching in the last execution
+     * @return the time spent building [0], and the time spent searching [1]
+     */
+    public long[] getLastExecutionTime(){
+        long[] arr = new long[2];
+        arr[0] = timeBuildingTree;
+        arr[1] = timeSearching;
+
+        return arr;
+    }
+
 }
