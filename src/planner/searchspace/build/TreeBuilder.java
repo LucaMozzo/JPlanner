@@ -7,7 +7,8 @@ import planner.problem.State;
 import planner.problem.TreeState;
 import planner.searchspace.datastructures.Node;
 import planner.searchspace.datastructures.Tree;
-import planner.types.OperationNotSupportedException;
+import utils.exceptions.DuplicateVariableNameException;
+import utils.exceptions.OperationNotSupportedException;
 
 import java.util.LinkedList;
 
@@ -24,7 +25,7 @@ public final class TreeBuilder{
      * @param domain the domain
      * @return the built tree
      */
-    public static Tree build(Problem problem, Domain domain) throws OperationNotSupportedException, StackOverflowError{
+    public static Tree build(Problem problem, Domain domain) throws OperationNotSupportedException, StackOverflowError, DuplicateVariableNameException{
         Tree searchSpaceTree = new Tree();
 
         //the root is the initial state

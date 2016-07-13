@@ -5,7 +5,8 @@ import planner.domain.Domain;
 import planner.searchspace.build.TreeBuilder;
 import planner.searchspace.datastructures.Tree;
 import planner.searchspace.search.DFS;
-import planner.types.OperationNotSupportedException;
+import utils.exceptions.DuplicateVariableNameException;
+import utils.exceptions.OperationNotSupportedException;
 
 import java.util.LinkedList;
 
@@ -83,7 +84,7 @@ public class Problem {
      * Solves the current problem
      * @return the plan
      */
-    public LinkedList<Action> solve() throws OperationNotSupportedException {
+    public LinkedList<Action> solve() throws OperationNotSupportedException, DuplicateVariableNameException {
         long start = System.currentTimeMillis();
         Tree searchspace = TreeBuilder.build(this, domain);
         timeBuildingTree = System.currentTimeMillis() - start;

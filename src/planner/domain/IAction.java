@@ -1,7 +1,7 @@
 package planner.domain;
 
 import planner.problem.State;
-import planner.types.OperationNotSupportedException;
+import utils.exceptions.OperationNotSupportedException;
 
 /**
  * Created by LUCA on 13/07/2016.

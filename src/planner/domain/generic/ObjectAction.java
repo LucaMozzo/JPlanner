@@ -3,7 +3,7 @@ package planner.domain.generic;
 import planner.domain.IAction;
 import planner.problem.State;
 import planner.types.Object;
-import planner.types.OperationNotSupportedException;
+import utils.exceptions.OperationNotSupportedException;
 
 /**
  * Created by LUCA on 13/07/2016.

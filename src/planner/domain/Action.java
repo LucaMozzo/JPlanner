@@ -1,8 +1,7 @@
 package planner.domain;
 
-import planner.problem.Problem;
 import planner.problem.State;
-import planner.types.OperationNotSupportedException;
+import utils.exceptions.OperationNotSupportedException;
 
 import java.util.LinkedList;
 

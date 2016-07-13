@@ -4,9 +4,8 @@ import planner.problem.State;
 import planner.types.DataType;
 import planner.types.DefaultDataType;
 import planner.types.NumericDataType;
-import planner.types.OperationNotSupportedException;
-import planner.types.standard.Integer;
-import utils.Operations;
+import utils.exceptions.OperationNotSupportedException;
+import utils.Operation;
 import utils.Validation;
 
 /**
@@ -16,7 +15,7 @@ import utils.Validation;
  */
 public class Effect<E extends DefaultDataType> extends Fact<E> {
 
-    Operations operation;
+    Operation operation;
     DataType argument;
 
     /**
@@ -24,7 +23,7 @@ public class Effect<E extends DefaultDataType> extends Fact<E> {
      * @param var the variable name
      * @param operation the expected value
      */
-    public Effect(String var, Operations operation){
+    public Effect(String var, Operation operation){
         super(var);
 
         this.operation = operation;
@@ -40,7 +39,7 @@ public class Effect<E extends DefaultDataType> extends Fact<E> {
      * @param operation the expected value
      * @param arg the argument
      */
-    public Effect(String var, Operations operation, DataType arg){
+    public Effect(String var, Operation operation, DataType arg){
         super(var);
 
         this.operation = operation;

@@ -1,4 +1,4 @@
-package planner.types;
+package utils.exceptions;
 
 /**
  * Created by LUCA on 15/06/2016.

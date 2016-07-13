@@ -1,6 +1,7 @@
 package planner.types;
 
 import planner.domain.Variable;
+import utils.exceptions.DuplicateVariableNameException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,10 +20,10 @@ public abstract class Object {
      * Add a property to the list
      * @param property the property to be added
      */
-    public void addProperty(Variable property) throws Exception{
+    public void addProperty(Variable property) throws DuplicateVariableNameException{
         for(Variable v : properties)
             if(property.getName().equals(v.getName()))
-                throw new Exception("No 2 variables can have the same name");
+                throw new DuplicateVariableNameException("Two variables can't have the same name");
         properties.add(property);
     }
 

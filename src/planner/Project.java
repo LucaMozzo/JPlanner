@@ -3,7 +3,8 @@ package planner;
 import planner.domain.Action;
 import planner.domain.Domain;
 import planner.problem.Problem;
-import planner.types.OperationNotSupportedException;
+import utils.exceptions.DuplicateVariableNameException;
+import utils.exceptions.OperationNotSupportedException;
 
 import java.util.LinkedList;
 
@@ -78,7 +79,7 @@ public class Project {
      * Solves all the problems in the project
      * @return the solutions
      */
-    public LinkedList<LinkedList<Action>> solveAll() throws OperationNotSupportedException {
+    public LinkedList<LinkedList<Action>> solveAll() throws OperationNotSupportedException, DuplicateVariableNameException {
         LinkedList<LinkedList<Action>> solutions = new LinkedList<>();
 
         for(Problem p : problems)

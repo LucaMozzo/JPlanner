@@ -3,6 +3,7 @@ package planner.problem;
 import planner.domain.Variable;
 import planner.types.DefaultDataType;
 import planner.types.Object;
+import utils.exceptions.DuplicateVariableNameException;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -72,10 +73,11 @@ public class State {
      * Add a variable to the list
      * @param var the variable
      */
-    public void addVariable(Variable var) throws Exception{
+    public void addVariable(Variable var) throws DuplicateVariableNameException {
         for(Variable v : variables)
             if(v.getName().equals(var.getName()))
-                throw new Exception("No 2 variables can have the same name");
+                throw new DuplicateVariableNameException("Two variables can't have the same name");
+
         variables.add(var);
     }
 
@@ -92,7 +94,7 @@ public class State {
      * Add a collection of variables to the list
      * @param vars the collection of variables
      */
-    public void addVariables(Collection<Variable> vars) throws Exception{
+    public void addVariables(Collection<Variable> vars) throws DuplicateVariableNameException {
         for(Variable v : vars)
             addVariable(v);
     }
@@ -111,7 +113,7 @@ public class State {
      * @param state the state to be converted
      * @return the converted TreeState
      */
-    public static TreeState convertToTreeState(State state) throws Exception {
+    public static TreeState convertToTreeState(State state) throws DuplicateVariableNameException {
         TreeState ts = new TreeState();
         ts.addVariables(state.getInstanceVariables());
         ts.addObjects(state.getInstanceObjects());

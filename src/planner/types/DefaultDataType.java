@@ -1,5 +1,7 @@
 package planner.types;
 
+import utils.exceptions.OperationNotSupportedException;
+
 /**
  * Created by LUCA on 15/06/2016.
  *

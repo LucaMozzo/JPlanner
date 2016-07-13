@@ -1,7 +1,7 @@
 
 import planner.searchspace.datastructures.Node;
 import planner.searchspace.datastructures.Tree;
-import planner.types.OperationNotSupportedException;
+import utils.exceptions.OperationNotSupportedException;
 
 import java.util.Iterator;
 
