@@ -3,8 +3,8 @@ package utils;
 /**
  * Created by LUCA on 18/05/2016.
  *
- * Comparisons operators
+ * Comparison operators
  */
-public enum Comparisons {
+public enum Comparison {
     EQUAL, GREATER, LESS, GREATER_OR_EQUAL, LESS_OR_EQUAL, NOT_EQUAL
 }

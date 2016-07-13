@@ -5,20 +5,18 @@ import planner.problem.Problem;
 import planner.problem.State;
 import planner.searchspace.datastructures.Node;
 import planner.searchspace.datastructures.Tree;
-import planner.types.OperationNotSupportedException;
 import planner.types.standard.Integer;
-import utils.Comparisons;
-import utils.Operations;
+import utils.Comparison;
+import utils.Operation;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 
 /**
  * Created by LUCA on 18/05/2016.
  */
 public class Test_Searchspace_Generation {
 
-    public static void main(String[] args) throws OperationNotSupportedException {
+    public static void main(String[] args) throws Exception {
 
         Tree searchspace = createPlan();
         System.out.println("Explored " + searchspace.getSize() + " nodes");
@@ -29,15 +27,15 @@ public class Test_Searchspace_Generation {
             System.out.println("\n" + ((TreeState)((Node)it.next()).getElement()).getActions());
     }
 
-    public static Tree createPlan() throws OperationNotSupportedException {
+    public static Tree createPlan() throws Exception {
         Variable<Integer> btnPressedVar = new Variable<>("btnPressed", new Integer(0));
         Variable<Integer> btn2PressedVar = new Variable<>("btn2Pressed", new Integer(0));
 
-        Precondition<Integer> btnPressedPre = new Precondition<>("btnPressed", new Integer(1), Comparisons.LESS_OR_EQUAL);
-        Precondition<Integer> btn2PressedPre = new Precondition<>("btn2Pressed", new Integer(4), Comparisons.LESS);
+        Precondition<Integer> btnPressedPre = new Precondition<>("btnPressed", new Integer(1), Comparison.LESS_OR_EQUAL);
+        Precondition<Integer> btn2PressedPre = new Precondition<>("btn2Pressed", new Integer(4), Comparison.LESS);
 
-        Effect<Integer> btnPressedEff = new Effect<>("btnPressed", Operations.INCREASE);
-        Effect<Integer> btn2PressedEff = new Effect<>("btn2Pressed", Operations.INCREASE);
+        Effect<Integer> btnPressedEff = new Effect<>("btnPressed", Operation.INCREASE);
+        Effect<Integer> btn2PressedEff = new Effect<>("btn2Pressed", Operation.INCREASE);
 
         Action pressBtn = new Action("press the button");
         pressBtn.addPrecondition(btnPressedPre);

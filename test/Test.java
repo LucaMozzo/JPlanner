@@ -1,10 +1,9 @@
 import planner.domain.*;
 import planner.problem.Problem;
 import planner.problem.State;
-import planner.types.OperationNotSupportedException;
 import planner.types.standard.Integer;
-import utils.Comparisons;
-import utils.Operations;
+import utils.Comparison;
+import utils.Operation;
 
 import java.util.LinkedList;
 
@@ -18,13 +17,13 @@ public class Test {
         Variable<Integer> btn2PressedVar = new Variable<>("btn2Pressed", new Integer(0));
         Variable<Integer> btn3PressedVar = new Variable<>("btn3Pressed", new Integer(0));
 
-        Precondition<Integer> btnPressedPre = new Precondition<>("btnPressed", new Integer(1), Comparisons.LESS_OR_EQUAL);
-        Precondition<Integer> btn2PressedPre = new Precondition<>("btn2Pressed", new Integer(4), Comparisons.LESS);
-        Precondition<Integer> btn3PressedPre = new Precondition<>("btn3Pressed", new Integer(5), Comparisons.LESS);
+        Precondition<Integer> btnPressedPre = new Precondition<>("btnPressed", new Integer(1), Comparison.LESS_OR_EQUAL);
+        Precondition<Integer> btn2PressedPre = new Precondition<>("btn2Pressed", new Integer(4), Comparison.LESS);
+        Precondition<Integer> btn3PressedPre = new Precondition<>("btn3Pressed", new Integer(5), Comparison.LESS);
 
-        Effect<Integer> btnPressedEff = new Effect<>("btnPressed", Operations.INCREASE);
-        Effect<Integer> btn2PressedEff = new Effect<>("btn2Pressed", Operations.INCREASE);
-        Effect<Integer> btn3PressedEff = new Effect<>("btn3Pressed", Operations.INCREASE);
+        Effect<Integer> btnPressedEff = new Effect<>("btnPressed", Operation.INCREASE);
+        Effect<Integer> btn2PressedEff = new Effect<>("btn2Pressed", Operation.INCREASE);
+        Effect<Integer> btn3PressedEff = new Effect<>("btn3Pressed", Operation.INCREASE);
 
         Action pressBtn = new Action("press the button");
         pressBtn.addPrecondition(btnPressedPre);

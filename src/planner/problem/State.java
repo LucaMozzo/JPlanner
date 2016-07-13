@@ -2,6 +2,7 @@ package planner.problem;
 
 import planner.domain.Variable;
 import planner.types.DefaultDataType;
+import planner.types.Object;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -15,6 +16,7 @@ import java.util.LinkedList;
 public class State {
 
     protected LinkedList<Variable> variables;
+    protected LinkedList<Object> objects;
 
     /**
      * The constructor initializes the list of variables
@@ -40,6 +42,14 @@ public class State {
      */
     public LinkedList<Variable> getInstanceVariables(){
         return variables;
+    }
+
+    /**
+     * Return all the objects of this instance
+     * @return the objects
+     */
+    private LinkedList<Object> getInstanceObjects() {
+        return objects;
     }
 
     /**
@@ -70,12 +80,30 @@ public class State {
     }
 
     /**
+     * Add an object to the list
+     * @param obj the object
+     */
+    public void addObject(Object obj) {
+        if(!objects.contains(obj))
+            objects.add(obj);
+    }
+
+    /**
      * Add a collection of variables to the list
      * @param vars the collection of variables
      */
-    public void addVariables(Collection<Variable> vars){
+    public void addVariables(Collection<Variable> vars) throws Exception{
         for(Variable v : vars)
-            variables.add(v);
+            addVariable(v);
+    }
+
+    /**
+     * Add a collection of objects to the list
+     * @param objs the collection of objects
+     */
+    public void addObjects(Collection<Object> objs){
+        for(Object o : objs)
+            addObject(o);
     }
 
     /**
@@ -83,9 +111,10 @@ public class State {
      * @param state the state to be converted
      * @return the converted TreeState
      */
-    public static TreeState convertToTreeState(State state){
+    public static TreeState convertToTreeState(State state) throws Exception {
         TreeState ts = new TreeState();
         ts.addVariables(state.getInstanceVariables());
+        ts.addObjects(state.getInstanceObjects());
 
         return ts;
     }
@@ -102,6 +131,21 @@ public class State {
         return null;
     }
 
+    /**
+     * Returns all the objects of the given type
+     * @param type the type
+     * @return
+     */
+    public LinkedList<Object> getObjectsByType(Class type){
+        LinkedList<Object> tmp = new LinkedList<>();
+
+        for(Object o : objects)
+            if(o.getClass() == type)
+                tmp.add(o);
+
+        return tmp;
+    }
+
     @Override
     public String toString(){
         String tmp = "Variables: [";
@@ -111,7 +155,7 @@ public class State {
     }
 
     @Override
-    public boolean equals(Object other){
+    public boolean equals(java.lang.Object other){
         if(other instanceof State){
             //checking the size first saves time if it's not necessary to loop through the array
             if(variables.size() != ((State) other).variables.size())
