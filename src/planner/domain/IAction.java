@@ -1,6 +1,7 @@
 package planner.domain;
 
 import planner.problem.State;
+import planner.types.OperationNotSupportedException;
 
 /**
  * Created by LUCA on 13/07/2016.
@@ -20,5 +21,5 @@ public interface IAction {
      * Applies all the effects after it is performed
      * @param state the state on which apply the effects
      */
-    void applyEffects(State state);
+    void applyEffects(State state) throws OperationNotSupportedException;
 }

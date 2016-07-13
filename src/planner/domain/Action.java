@@ -11,7 +11,7 @@ import java.util.LinkedList;
  *
  * An action in order to start needs the preconditions to be satisfied
  */
-public class Action {
+public class Action implements IAction{
 
     private LinkedList<Effect> effects;
     private LinkedList<Precondition> preconditions;
@@ -70,11 +70,7 @@ public class Action {
         return effects;
     }
 
-    /**
-     * Determines whether the action is currently applicable, by checking preconditions
-     * @param state the state on which check if applicable
-     * @return true if applicable
-     */
+    @Override
     public boolean isApplicable(State state){
         LinkedList<Variable> temp; //will temporary store instance variables of the problem
         Variable var = null;
@@ -106,10 +102,7 @@ public class Action {
         return true;
     }
 
-    /**
-     * Applies all the effects after it is performed
-     * @param state the state on which apply the effects
-     */
+    @Override
     public void applyEffects(State state) throws OperationNotSupportedException {
         for(Effect effect : effects)
             effect.apply(state);
