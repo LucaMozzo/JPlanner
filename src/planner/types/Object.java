@@ -1,11 +1,8 @@
 package planner.types;
 
 import planner.domain.Variable;
-import utils.exceptions.DuplicateVariableNameException;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
+import java.lang.reflect.Field;
 
 /**
  * Created by LUCA on 30/06/2016.
@@ -14,51 +11,25 @@ import java.util.Iterator;
  */
 public abstract class Object {
 
-    protected ArrayList<Variable> properties = new ArrayList<>();
-
     /**
-     * Add a property to the list
-     * @param property the property to be added
-     */
-    public void addProperty(Variable property) throws DuplicateVariableNameException{
-        for(Variable v : properties)
-            if(property.getName().equals(v.getName()))
-                throw new DuplicateVariableNameException("Two variables can't have the same name");
-        properties.add(property);
-    }
-
-    /**
-     * Returns an iterable collection of properties
-     * @return the properties
-     */
-    public ArrayList<Variable> getProperties(){
-        return properties;
-    }
-
-    /**
-     * Returns the property with the give name
-     * @param name the name
-     * @return the property
+     * Returns a field variable in the class with the given name
+     * @param name the name of the field
+     * @return the variable
      */
     public Variable getPropertyByName(String name) {
-        for(Variable v : properties)
-            if(v.getName().equals(name))
-                return v;
-        return null;
-    }
+        try {
+            Field f = getClass().getDeclaredField(name);
+            f.setAccessible(true);
+            return (Variable) f.get(this);
 
-    /**
-     * Set a new value for a property
-     * @param name the name of the property
-     * @param newValue the new value
-     */
-    public void setProperty(String name, DefaultDataType newValue) throws Exception {
-        for(Variable v : properties)
-            if(v.getName().equals(name)) {
-                v.setValue(newValue);
-                return;
-            }
-        throw new Exception("No variable called \"" + name + "\" in current context");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassCastException e) {
+            System.err.println("Only Variable<> objects are allowed in custom objects");
+        }
+        return null;
     }
 
     /**
@@ -67,12 +38,6 @@ public abstract class Object {
      * @return whether they match
      */
     public boolean matches(Object other){
-        Iterator it = properties.iterator();
-        Iterator otherIt = other.properties.iterator();
-
-        while(it.hasNext())
-            if(!it.next().equals(otherIt.next()))
-                return false;
-        return true;
+        return false;
     }
 }
