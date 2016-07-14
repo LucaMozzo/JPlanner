@@ -38,6 +38,29 @@ public class ObjectPrecondition<T extends Object, E extends DefaultDataType> imp
     @Override
     public boolean isSatisfied(State state) throws ClassCastException {
         LinkedList<Object> objs = state.getObjectsByType(TYPE.getClass());
+
+        for(Object o : objs){
+            Variable property = o.getPropertyByName(propertyName);
+            if(property != null && property.getValue().equals(expectedValue))
+                return true; //when at least one is satisfied, then return true
+        }
         return false;
+    }
+
+    /**
+     * Return a list of Objects that satisfy this precondition
+     * @param state the state
+     * @return the list of objects
+     */
+    public LinkedList<Object> getQualifiedObjects(State state){
+        LinkedList<Object> objs = state.getObjectsByType(TYPE.getClass());
+        LinkedList<Object> qualified = new LinkedList<>();
+
+        for(Object o : objs){
+            Variable property = o.getPropertyByName(propertyName);
+            if(property != null && property.getValue().equals(expectedValue))
+                qualified.add(o);
+        }
+        return qualified;
     }
 }
