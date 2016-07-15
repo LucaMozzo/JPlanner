@@ -24,6 +24,7 @@ public class State {
      */
     public State(){
         variables = new LinkedList<>();
+        objects = new LinkedList<>();
     }
 
     /**
@@ -33,6 +34,7 @@ public class State {
      */
     public State(LinkedList<Variable> vars){
         variables = new LinkedList<>();
+        objects = new LinkedList<>();
         for(Variable v : vars)
             variables.add(new Variable(v.getName(), v.getValue()));
     }
