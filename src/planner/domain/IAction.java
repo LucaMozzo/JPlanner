@@ -1,6 +1,7 @@
 package planner.domain;
 
 import planner.problem.State;
+import planner.types.Object;
 import utils.exceptions.OperationNotSupportedException;
 
 /**
@@ -20,6 +21,14 @@ public interface IAction {
     /**
      * Applies all the effects after it is performed
      * @param state the state on which apply the effects
+     * @throws OperationNotSupportedException if the operation is not supported by the data type
      */
     void applyEffects(State state) throws OperationNotSupportedException;
+
+    /**
+     * Applies all the effects after it is performed
+     * @param obj the object on which apply the effects
+     * @throws OperationNotSupportedException if the operation is not supported by the data type
+     */
+    void applyEffects(Object obj) throws OperationNotSupportedException;
 }

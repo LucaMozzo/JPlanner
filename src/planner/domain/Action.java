@@ -1,6 +1,8 @@
 package planner.domain;
 
 import planner.problem.State;
+import planner.types.Object;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utils.exceptions.OperationNotSupportedException;
 
 import java.util.LinkedList;
@@ -67,6 +69,12 @@ public class Action implements IAction{
      */
     public LinkedList<Effect> getEffects(){
         return effects;
+    }
+
+    @Override
+    public void applyEffects(Object obj) throws OperationNotSupportedException {
+        //not needed
+        throw new NotImplementedException();
     }
 
     @Override

@@ -4,6 +4,8 @@ import planner.problem.State;
 import planner.types.DataType;
 import planner.types.DefaultDataType;
 import planner.types.NumericDataType;
+import planner.types.Object;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utils.exceptions.OperationNotSupportedException;
 import utils.Operation;
 import utils.Validation;
@@ -13,7 +15,7 @@ import utils.Validation;
  *
  * An operation is a fact that becomes true after an action
  */
-public class Effect<E extends DefaultDataType> extends Fact<E> {
+public class Effect<E extends DefaultDataType> extends Fact<E> implements IEffect{
 
     Operation operation;
     DataType argument;
@@ -28,7 +30,7 @@ public class Effect<E extends DefaultDataType> extends Fact<E> {
 
         this.operation = operation;
 
-        //check if the arguments is needed
+        //check if the argument is needed
         if(!Validation.checkType(operation, false))
             throw new IllegalArgumentException("The operation " + operation.toString() + " needs an argument");
     }
@@ -45,17 +47,32 @@ public class Effect<E extends DefaultDataType> extends Fact<E> {
         this.operation = operation;
         this.argument = arg;
 
-        //check if the arguments is needed
+        //check if the argument is needed
         if(!Validation.checkType(operation, true))
             throw new IllegalArgumentException("The operation " + operation.toString() + " doesn't need an argument");
     }
 
-    /**
-     * Apply the value change in the given problem
-     * @param state the problem
-     */
+    @Override
     public void apply(State state) throws OperationNotSupportedException {
         Variable var = state.getVariableByName(varName);
+
+        applyOperation(operation, var, argument);
+    }
+
+    @Override
+    public void apply(Object object) throws OperationNotSupportedException {
+        //not needed
+        throw new NotImplementedException();
+    }
+
+    /**
+     * Applies the operation to the variable
+     * @param operation the operation
+     * @param var the variable
+     * @param argument the argument
+     * @throws OperationNotSupportedException if the operation is not supported by the type
+     */
+    public static void applyOperation(Operation operation, Variable var, DataType argument)throws OperationNotSupportedException{
         switch(operation){
             case INCREASE:
                 ((NumericDataType)var.getValue()).onIncrease();
