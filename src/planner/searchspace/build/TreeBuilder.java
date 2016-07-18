@@ -2,11 +2,14 @@ package planner.searchspace.build;
 
 import planner.domain.Action;
 import planner.domain.Domain;
+import planner.domain.IAction;
+import planner.domain.generic.ObjectAction;
 import planner.problem.Problem;
 import planner.problem.State;
 import planner.problem.TreeState;
 import planner.searchspace.datastructures.Node;
 import planner.searchspace.datastructures.Tree;
+import planner.types.CustomObject;
 import utils.exceptions.DuplicateVariableNameException;
 import utils.exceptions.OperationNotSupportedException;
 
@@ -42,25 +45,42 @@ public final class TreeBuilder{
      */
     private static Tree expandNode(Tree tree, Node<TreeState> parent, Domain domain) throws OperationNotSupportedException {
         TreeState parentState = parent.getElement();
-        LinkedList<Action> applicableActions = domain.getApplicableActions(parentState);
+        LinkedList<IAction> applicableActions = domain.getApplicableActions(parentState);
         if(applicableActions.isEmpty())
             return tree; //base case, no applicable actions
         else {
             //for each possible action
-            for (Action a : applicableActions) {
+            for (IAction a : applicableActions) {
+
                 //create a new state and node
                 TreeState childState = new TreeState(parentState.getActions(), parentState.getInstanceVariables()); //the child node will inherit everything from the parent
                 Node<TreeState> node = new Node<>(childState);
 
                 //apply the action and add it to the list to keep track of it
                 childState.addAction(a);
-                a.applyEffects(childState);
 
-                //add the node to the tree
-                tree.addNode(node, parent);
+                //differentiate between actions and object-actions
+                if(a instanceof Action) {
+                    a.applyEffects(childState);
 
-                //recur
-                expandNode(tree, node, domain);
+                    //add the node to the tree
+                    tree.addNode(node, parent);
+
+                    //recur
+                    expandNode(tree, node, domain);
+                }
+                else {
+                    LinkedList<CustomObject> objects = ((ObjectAction)a).getQualifiedObjects(parentState);
+                    for(CustomObject o : objects){
+                        a.applyEffects(o);
+
+                        //add the node to the tree
+                        tree.addNode(node, parent);
+
+                        //recur
+                        expandNode(tree, node, domain);
+                    }
+                }
             }
         }
         return tree;
