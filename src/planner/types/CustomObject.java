@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
  *
  * Represents a custom object
  */
-public abstract class Object {
+public abstract class CustomObject {
 
     /**
      * Returns a field variable in the class with the given name
@@ -27,17 +27,27 @@ public abstract class Object {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (ClassCastException e) {
-            System.err.println("Only Variable<> objects are allowed in custom objects");
+            System.err.println("Only Variable<> customObjects are allowed in custom customObjects");
         }
         return null;
     }
 
     /**
-     * Two objects match if they have the same properties with the same values (different from equals)
-     * @param other the other Object
+     * Two customObjects match if they have the same properties with the same values (different from equals)
+     * @param other the other CustomObject
      * @return whether they match
      */
-    public boolean matches(Object other){
-        return false;
+    public boolean matches(CustomObject other){
+        Field[] fields = getClass().getDeclaredFields();
+        Class otherClass = other.getClass();
+
+        for(Field f : fields)
+            try {
+                if(! f.equals(otherClass.getDeclaredField(f.getName())))
+                    return false;
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+        return true;
     }
 }

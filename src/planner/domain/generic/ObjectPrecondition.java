@@ -3,8 +3,8 @@ package planner.domain.generic;
 import planner.domain.IPrecondition;
 import planner.domain.Variable;
 import planner.problem.State;
+import planner.types.CustomObject;
 import planner.types.DefaultDataType;
-import planner.types.Object;
 import utils.Comparison;
 
 import java.util.LinkedList;
@@ -14,7 +14,7 @@ import java.util.LinkedList;
  *
  * A precondition that works on types instead of instances
  */
-public class ObjectPrecondition<T extends Object, E extends DefaultDataType> implements IPrecondition{
+public class ObjectPrecondition<T extends CustomObject, E extends DefaultDataType> implements IPrecondition{
 
     private Comparison operator;
     private String propertyName;
@@ -37,12 +37,25 @@ public class ObjectPrecondition<T extends Object, E extends DefaultDataType> imp
 
     @Override
     public boolean isSatisfied(State state) throws ClassCastException {
-        LinkedList<Object> objs = state.getObjectsByType(TYPE.getClass());
+        LinkedList<CustomObject> objs = state.getObjectsByType(TYPE.getClass());
 
-        for(Object o : objs){
+        for(CustomObject o : objs){
             Variable property = o.getPropertyByName(propertyName);
-            if(property != null && property.getValue().equals(expectedValue))
-                return true; //when at least one is satisfied, then return true
+            if(property != null)//when at least one is satisfied, then return true
+                switch(operator){
+                    case EQUAL:
+                        return expectedValue.equals(property.getValue());
+                    case NOT_EQUAL:
+                        return !expectedValue.equals(property.getValue());
+                    case GREATER:
+                        return ((Comparable<E>) property.getValue()).compareTo(expectedValue) > 0;
+                    case LESS:
+                        return ((Comparable<E>) property.getValue()).compareTo(expectedValue) < 0;
+                    case GREATER_OR_EQUAL:
+                        return ((Comparable<E>) property.getValue()).compareTo(expectedValue) >= 0;
+                    case LESS_OR_EQUAL:
+                        return ((Comparable<E>) property.getValue()).compareTo(expectedValue) <= 0;
+                }
         }
         return false;
     }
@@ -50,16 +63,29 @@ public class ObjectPrecondition<T extends Object, E extends DefaultDataType> imp
     /**
      * Return a list of Objects that satisfy this precondition
      * @param state the state
-     * @return the list of objects
+     * @return the list of customObjects
      */
-    public LinkedList<Object> getQualifiedObjects(State state){
-        LinkedList<Object> objs = state.getObjectsByType(TYPE.getClass());
-        LinkedList<Object> qualified = new LinkedList<>();
+    public LinkedList<CustomObject> getQualifiedObjects(State state){
+        LinkedList<CustomObject> objs = state.getObjectsByType(TYPE.getClass());
+        LinkedList<CustomObject> qualified = new LinkedList<>();
 
-        for(Object o : objs){
+        for(CustomObject o : objs){
             Variable property = o.getPropertyByName(propertyName);
-            if(property != null && property.getValue().equals(expectedValue))
-                qualified.add(o);
+            if(property != null)
+                switch(operator){
+                    case EQUAL:
+                        if(expectedValue.equals(property.getValue())) {qualified.add(o);}
+                    case NOT_EQUAL:
+                        if(!expectedValue.equals(property.getValue())) {qualified.add(o);}
+                    case GREATER:
+                        if(((Comparable<E>) property.getValue()).compareTo(expectedValue) > 0) {qualified.add(o);}
+                    case LESS:
+                        if(((Comparable<E>) property.getValue()).compareTo(expectedValue) < 0) {qualified.add(o);}
+                    case GREATER_OR_EQUAL:
+                        if(((Comparable<E>) property.getValue()).compareTo(expectedValue) >= 0) {qualified.add(o);}
+                    case LESS_OR_EQUAL:
+                        if(((Comparable<E>) property.getValue()).compareTo(expectedValue) <= 0) {qualified.add(o);}
+                }
         }
         return qualified;
     }
