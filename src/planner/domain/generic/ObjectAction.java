@@ -1,8 +1,9 @@
 package planner.domain.generic;
 
 import planner.domain.IAction;
+import planner.domain.IPrecondition;
 import planner.problem.State;
-import planner.types.Object;
+import planner.types.CustomObject;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utils.exceptions.OperationNotSupportedException;
 
@@ -14,7 +15,7 @@ import java.util.LinkedList;
  *
  * An action that is applied on any object of the given type
  */
-public class ObjectAction<T extends Object> implements IAction {
+public class ObjectAction<T extends CustomObject> implements IAction {
 
     private final T TYPE;
     private String name;
@@ -48,12 +49,12 @@ public class ObjectAction<T extends Object> implements IAction {
     }
 
     /**
-     * Returns a list of objects that satisfy all the preconditions
+     * Returns a list of customObjects that satisfy all the preconditions
      * @param state the state
-     * @return the qualified objects
+     * @return the qualified customObjects
      */
-    public LinkedList<Object> getQualifiedObjects(State state){
-        LinkedList<Object> qualified = new LinkedList<>();
+    public LinkedList<CustomObject> getQualifiedObjects(State state){
+        LinkedList<CustomObject> qualified = new LinkedList<>();
 
         Iterator it = preconditions.iterator();
         if(it.hasNext()) {
@@ -66,19 +67,35 @@ public class ObjectAction<T extends Object> implements IAction {
     }
 
     /**
-     * Returns a list of objects that are contained in both lists
+     * Returns a list of customObjects that are contained in both lists
      * @param list1 the first list
      * @param list2 the second list
-     * @return the common objects
+     * @return the common customObjects
      */
-    private static LinkedList<Object> getCommonObjects(LinkedList<Object> list1, LinkedList<Object> list2) {
-        LinkedList<Object> commonObjs = new LinkedList<>();
+    private static LinkedList<CustomObject> getCommonObjects(LinkedList<CustomObject> list1, LinkedList<CustomObject> list2) {
+        LinkedList<CustomObject> commonObjs = new LinkedList<>();
 
-        for(Object obj : list1)
+        for(CustomObject obj : list1)
             if(list2.contains(obj))
                 commonObjs.add(obj);
 
         return commonObjs;
+    }
+
+    /**
+     * Add a precondition
+     * @param precondition the precondition
+     */
+    public void addPrecondition(ObjectPrecondition precondition) {
+        preconditions.add(precondition);
+    }
+
+    /**
+     * Add an effect
+     * @param effect the effect
+     */
+    public void addEffect(ObjectEffect effect) {
+        effects.add(effect);
     }
 
     @Override
@@ -96,9 +113,9 @@ public class ObjectAction<T extends Object> implements IAction {
     }
 
     @Override
-    public void applyEffects(Object object) throws OperationNotSupportedException {
+    public void applyEffects(CustomObject customObject) throws OperationNotSupportedException {
         for(ObjectEffect oe : effects)
-            oe.apply(object);
+            oe.apply(customObject);
     }
 
     @Override
