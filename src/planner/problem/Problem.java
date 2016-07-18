@@ -1,7 +1,7 @@
 package planner.problem;
 
-import planner.domain.Action;
 import planner.domain.Domain;
+import planner.domain.IAction;
 import planner.searchspace.build.TreeBuilder;
 import planner.searchspace.datastructures.Tree;
 import planner.searchspace.search.DFS;
@@ -84,13 +84,13 @@ public class Problem {
      * Solves the current problem
      * @return the plan
      */
-    public LinkedList<Action> solve() throws OperationNotSupportedException, DuplicateVariableNameException {
+    public LinkedList<IAction> solve() throws OperationNotSupportedException, DuplicateVariableNameException {
         long start = System.currentTimeMillis();
         Tree searchspace = TreeBuilder.build(this, domain);
         timeBuildingTree = System.currentTimeMillis() - start;
 
         start = System.currentTimeMillis();
-        LinkedList<Action> tmp = DFS.search(searchspace, State.convertToTreeState(goalState));
+        LinkedList<IAction> tmp = DFS.search(searchspace, State.convertToTreeState(goalState));
         timeSearching = System.currentTimeMillis() - start;
 
         return tmp;

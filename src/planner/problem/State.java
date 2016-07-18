@@ -1,8 +1,8 @@
 package planner.problem;
 
 import planner.domain.Variable;
+import planner.types.CustomObject;
 import planner.types.DefaultDataType;
-import planner.types.Object;
 import utils.exceptions.DuplicateVariableNameException;
 
 import java.util.Collection;
@@ -17,24 +17,24 @@ import java.util.LinkedList;
 public class State {
 
     protected LinkedList<Variable> variables;
-    protected LinkedList<Object> objects;
+    protected LinkedList<CustomObject> customObjects;
 
     /**
      * The constructor initializes the list of variables
      */
     public State(){
         variables = new LinkedList<>();
-        objects = new LinkedList<>();
+        customObjects = new LinkedList<>();
     }
 
     /**
      * Overloaded constructor allows to inherit variables from another state
-     * This method also has to create NEW objects to prevent the parent's variables to point to the children's ones
+     * This method also has to create NEW customObjects to prevent the parent's variables to point to the children's ones
      * @param vars the variables
      */
     public State(LinkedList<Variable> vars){
         variables = new LinkedList<>();
-        objects = new LinkedList<>();
+        customObjects = new LinkedList<>();
         for(Variable v : vars)
             variables.add(new Variable(v.getName(), v.getValue()));
     }
@@ -48,11 +48,11 @@ public class State {
     }
 
     /**
-     * Return all the objects of this instance
-     * @return the objects
+     * Return all the customObjects of this instance
+     * @return the customObjects
      */
-    private LinkedList<Object> getInstanceObjects() {
-        return objects;
+    private LinkedList<CustomObject> getInstanceObjects() {
+        return customObjects;
     }
 
     /**
@@ -87,9 +87,9 @@ public class State {
      * Add an object to the list
      * @param obj the object
      */
-    public void addObject(Object obj) {
-        if(!objects.contains(obj))
-            objects.add(obj);
+    public void addObject(CustomObject obj) {
+        if(!customObjects.contains(obj))
+            customObjects.add(obj);
     }
 
     /**
@@ -102,11 +102,11 @@ public class State {
     }
 
     /**
-     * Add a collection of objects to the list
-     * @param objs the collection of objects
+     * Add a collection of customObjects to the list
+     * @param objs the collection of customObjects
      */
-    public void addObjects(Collection<Object> objs){
-        for(Object o : objs)
+    public void addObjects(Collection<CustomObject> objs){
+        for(CustomObject o : objs)
             addObject(o);
     }
 
@@ -136,14 +136,14 @@ public class State {
     }
 
     /**
-     * Returns all the objects of the given type
+     * Returns all the customObjects of the given type
      * @param type the type
      * @return
      */
-    public LinkedList<Object> getObjectsByType(Class type){
-        LinkedList<Object> tmp = new LinkedList<>();
+    public LinkedList<CustomObject> getObjectsByType(Class type){
+        LinkedList<CustomObject> tmp = new LinkedList<>();
 
-        for(Object o : objects)
+        for(CustomObject o : customObjects)
             if(o.getClass() == type)
                 tmp.add(o);
 

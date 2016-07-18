@@ -55,7 +55,7 @@ public class Variable<E extends DefaultDataType> {
     @Override
     public boolean equals(Object otherVariable){
         if(otherVariable instanceof Variable && value.getClass() == ((Variable) otherVariable).getValue().getClass())
-            //check whether name and value are the same (delegates the objects to check primitive equality)
+            //check whether name and value are the same (delegates the customObjects to check primitive equality)
             if(getName().equals(((Variable) otherVariable).getName()) &&
                     getValue().equals(((Variable) otherVariable).getValue()))
                 return true;

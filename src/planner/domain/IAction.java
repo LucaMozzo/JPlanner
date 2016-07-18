@@ -1,7 +1,7 @@
 package planner.domain;
 
 import planner.problem.State;
-import planner.types.Object;
+import planner.types.CustomObject;
 import utils.exceptions.OperationNotSupportedException;
 
 /**
@@ -30,5 +30,5 @@ public interface IAction {
      * @param obj the object on which apply the effects
      * @throws OperationNotSupportedException if the operation is not supported by the data type
      */
-    void applyEffects(Object obj) throws OperationNotSupportedException;
+    void applyEffects(CustomObject obj) throws OperationNotSupportedException;
 }

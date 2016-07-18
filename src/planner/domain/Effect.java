@@ -1,10 +1,10 @@
 package planner.domain;
 
 import planner.problem.State;
+import planner.types.CustomObject;
 import planner.types.DataType;
 import planner.types.DefaultDataType;
 import planner.types.NumericDataType;
-import planner.types.Object;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utils.exceptions.OperationNotSupportedException;
 import utils.Operation;
@@ -60,7 +60,7 @@ public class Effect<E extends DefaultDataType> extends Fact<E> implements IEffec
     }
 
     @Override
-    public void apply(Object object) throws OperationNotSupportedException {
+    public void apply(CustomObject customObject) throws OperationNotSupportedException {
         //not needed
         throw new NotImplementedException();
     }

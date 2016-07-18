@@ -1,6 +1,7 @@
 package planner.problem;
 
 import planner.domain.Action;
+import planner.domain.IAction;
 import planner.domain.Variable;
 
 import java.util.Iterator;
@@ -14,7 +15,7 @@ import java.util.LinkedList;
 public class TreeState extends State {
 
     //keep track of the actions applied so far
-    private LinkedList<Action> actions;
+    private LinkedList<IAction> actions;
 
     /**
      * If the state is a root state, it doesn't inherit any sequence of actions
@@ -29,7 +30,7 @@ public class TreeState extends State {
      * In most cases we want a children in the tree to have the plan of the parent to which add more actions
      * @param parentPlan the plan of the parent
      */
-    public TreeState(LinkedList<Action> parentPlan, LinkedList<Variable> vars){
+    public TreeState(LinkedList<IAction> parentPlan, LinkedList<Variable> vars){
         super(vars);
 
         actions = new LinkedList<>(parentPlan);
@@ -39,7 +40,7 @@ public class TreeState extends State {
      * Add an action to keep track of
      * @param action the action
      */
-    public void addAction(Action action){
+    public void addAction(IAction action){
         actions.add(action);
     }
 
@@ -47,7 +48,7 @@ public class TreeState extends State {
      * Getter for the list of actions
      * @return the list of actions
      */
-    public LinkedList<Action> getActions(){
+    public LinkedList<IAction> getActions(){
         return actions;
     }
 
@@ -56,7 +57,7 @@ public class TreeState extends State {
         String tmp = "Actions: [";
         String tmp2 = "Variables: [";
 
-        for(Action a : actions)
+        for(IAction a : actions)
             tmp += a + ", ";
 
         for(Variable v : variables)
@@ -70,7 +71,7 @@ public class TreeState extends State {
 
     /*
     @Override
-    public boolean equals(Object other){
+    public boolean equals(CustomObject other){
         if(other instanceof TreeState){
             //checking the size first saves time if it's not necessary to loop through both arrays
             if(!(actions.size() == ((TreeState) other).actions.size() && variables.size() == ((TreeState) other).variables.size()))

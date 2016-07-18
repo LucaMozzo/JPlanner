@@ -56,7 +56,7 @@ public class Test {
         problem1.setInitialState(init);
         problem1.setGoalState(goal);
 
-        LinkedList<Action> plan = problem1.solve();
+        LinkedList<IAction> plan = problem1.solve();
         System.out.println("Searchspace built in " + problem1.getLastExecutionTime()[0] + "ms.\nPlan found in " + problem1.getLastExecutionTime()[1] + "ms.");
         for(int i = 0; i < plan.size(); ++i)
             System.out.println(i + ". " + plan.get(i));

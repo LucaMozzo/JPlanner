@@ -1,7 +1,7 @@
 package planner.domain;
 
 import planner.problem.State;
-import planner.types.Object;
+import planner.types.CustomObject;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utils.exceptions.OperationNotSupportedException;
 
@@ -72,7 +72,7 @@ public class Action implements IAction{
     }
 
     @Override
-    public void applyEffects(Object obj) throws OperationNotSupportedException {
+    public void applyEffects(CustomObject obj) throws OperationNotSupportedException {
         //not needed
         throw new NotImplementedException();
     }

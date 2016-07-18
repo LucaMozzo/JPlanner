@@ -11,7 +11,7 @@ import java.util.LinkedList;
  */
 public class Domain {
 
-    private LinkedList<Action> actions;
+    private LinkedList<IAction> actions;
 
     /**
      * The constructor only initializes the linked list
@@ -24,7 +24,7 @@ public class Domain {
      * Adds an action to the domain
      * @param action the action
      */
-    public void addAction(Action action){
+    public void addAction(IAction action){
         actions.add(action);
     }
 
@@ -33,12 +33,12 @@ public class Domain {
      * @param state the state
      * @return the applicable actions
      */
-    public LinkedList<Action> getApplicableActions(State state){
+    public LinkedList<IAction> getApplicableActions(State state){
 
-        LinkedList<Action> applicableActions = new LinkedList<>();
+        LinkedList<IAction> applicableActions = new LinkedList<>();
 
         //check for each action specified in the domain which can be applied in the given state
-        for(Action a : actions)
+        for(IAction a : actions)
             if(a.isApplicable(state))
                 applicableActions.add(a);
 

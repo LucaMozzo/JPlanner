@@ -4,8 +4,8 @@ import planner.domain.Effect;
 import planner.domain.IEffect;
 import planner.domain.Variable;
 import planner.problem.State;
+import planner.types.CustomObject;
 import planner.types.DefaultDataType;
-import planner.types.Object;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utils.Operation;
 import utils.Validation;
@@ -16,7 +16,7 @@ import utils.exceptions.OperationNotSupportedException;
  *
  * An effect that is applied on any object of the given type
  */
-public class ObjectEffect<T extends Object, E extends DefaultDataType> implements IEffect {
+public class ObjectEffect<T extends CustomObject, E extends DefaultDataType> implements IEffect {
 
     private final T TYPE;
     private String propertyName;
@@ -64,7 +64,7 @@ public class ObjectEffect<T extends Object, E extends DefaultDataType> implement
     }
 
     @Override
-    public void apply(Object obj) throws OperationNotSupportedException {
+    public void apply(CustomObject obj) throws OperationNotSupportedException {
         Variable property = obj.getPropertyByName(propertyName);
 
         Effect.applyOperation(operation, property, arg);
