@@ -1,8 +1,6 @@
 package planner.problem;
 
-import planner.domain.Variable;
 import planner.types.CustomObject;
-import planner.types.DefaultDataType;
 import utils.exceptions.DuplicateVariableNameException;
 
 import java.util.Collection;
@@ -16,35 +14,24 @@ import java.util.LinkedList;
  */
 public class State {
 
-    protected LinkedList<Variable> variables;
     protected LinkedList<CustomObject> customObjects;
 
     /**
-     * The constructor initializes the list of variables
+     * The constructor initializes the list of objects
      */
     public State(){
-        variables = new LinkedList<>();
         customObjects = new LinkedList<>();
     }
 
     /**
-     * Overloaded constructor allows to inherit variables from another state
+     * Overloaded constructor allows to inherit objects from another state
      * This method also has to create NEW customObjects to prevent the parent's variables to point to the children's ones
-     * @param vars the variables
+     * @param objs the objects
      */
-    public State(LinkedList<Variable> vars){
-        variables = new LinkedList<>();
+    public State(LinkedList<CustomObject> objs){
         customObjects = new LinkedList<>();
-        for(Variable v : vars)
-            variables.add(new Variable(v.getName(), v.getValue()));
-    }
-
-    /**
-     * Return all the variables of this instance
-     * @return the variables
-     */
-    public LinkedList<Variable> getInstanceVariables(){
-        return variables;
+        for(CustomObject o : objs)
+            customObjects.add(o.duplicate());
     }
 
     /**
@@ -56,49 +43,12 @@ public class State {
     }
 
     /**
-     * Given the variable and a new value, it replaces the old value of the given variable with the given one
-     * @param var the variable
-     * @param value the new value
-     */
-    public void setInstanceVariableValue(Variable var, DefaultDataType value){
-        int tmpIndex;
-        //if the variable exists in the current problem
-        if((tmpIndex = variables.indexOf(var)) != -1){
-            Variable tmpVar = variables.get(tmpIndex);
-            //if the old value and the new one are of the same type
-            if(tmpVar.getValue().getClass() == value.getClass())
-                tmpVar.setValue(value);
-        }
-    }
-
-    /**
-     * Add a variable to the list
-     * @param var the variable
-     */
-    public void addVariable(Variable var) throws DuplicateVariableNameException {
-        for(Variable v : variables)
-            if(v.getName().equals(var.getName()))
-                throw new DuplicateVariableNameException("Two variables can't have the same name");
-
-        variables.add(var);
-    }
-
-    /**
      * Add an object to the list
      * @param obj the object
      */
     public void addObject(CustomObject obj) {
         if(!customObjects.contains(obj))
             customObjects.add(obj);
-    }
-
-    /**
-     * Add a collection of variables to the list
-     * @param vars the collection of variables
-     */
-    public void addVariables(Collection<Variable> vars) throws DuplicateVariableNameException {
-        for(Variable v : vars)
-            addVariable(v);
     }
 
     /**
@@ -117,28 +67,15 @@ public class State {
      */
     public static TreeState convertToTreeState(State state) throws DuplicateVariableNameException {
         TreeState ts = new TreeState();
-        ts.addVariables(state.getInstanceVariables());
         ts.addObjects(state.getInstanceObjects());
 
         return ts;
     }
 
     /**
-     * Returns a variable with the specified value
-     * @param name the name
-     * @return the variable, if exists
-     */
-    public Variable getVariableByName(String name){
-        for(Variable v : variables)
-            if(v.getName().equals(name))
-                return v;
-        return null;
-    }
-
-    /**
      * Returns all the customObjects of the given type
      * @param type the type
-     * @return
+     * @return a list of objects of that type
      */
     public LinkedList<CustomObject> getObjectsByType(Class type){
         LinkedList<CustomObject> tmp = new LinkedList<>();
@@ -151,22 +88,23 @@ public class State {
     }
 
     @Override
-    public String toString(){
-        String tmp = "Variables: [";
+    public String toString(){ //TODO fix this
+        /*String tmp = "Variables: [";
         for(Variable v : variables)
             tmp += v + ", ";
-        return tmp.length() > 13 ? tmp.substring(0, tmp.length() - 2) + "]" : tmp + "]";
+        return tmp.length() > 13 ? tmp.substring(0, tmp.length() - 2) + "]" : tmp + "]";*/
+        return "";
     }
 
     @Override
     public boolean equals(java.lang.Object other){
         if(other instanceof State){
             //checking the size first saves time if it's not necessary to loop through the array
-            if(variables.size() != ((State) other).variables.size())
+            if(customObjects.size() != ((State) other).customObjects.size())
                 return false;
 
-            Iterator iterator = variables.iterator();
-            Iterator otherIterator = ((State) other).variables.iterator();
+            Iterator iterator = customObjects.iterator();
+            Iterator otherIterator = ((State) other).customObjects.iterator();
 
             while(iterator.hasNext()){
                 if(!iterator.next().equals(otherIterator.next()))
