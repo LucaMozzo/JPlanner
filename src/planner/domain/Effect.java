@@ -15,7 +15,7 @@ import utils.Validation;
  *
  * An operation is a fact that becomes true after an action
  */
-public class Effect<E extends DefaultDataType> extends Fact<E> implements IEffect{
+public class Effect<E extends DefaultDataType> extends Fact<E>{
 
     Operation operation;
     DataType argument;
@@ -52,17 +52,15 @@ public class Effect<E extends DefaultDataType> extends Fact<E> implements IEffec
             throw new IllegalArgumentException("The operation " + operation.toString() + " doesn't need an argument");
     }
 
-    @Override
-    public void apply(State state) throws OperationNotSupportedException {
-        Variable var = state.getVariableByName(varName);
+    /**
+     * Apply the operation as an effect of an action to the given object
+     * @param obj the target
+     * @throws OperationNotSupportedException if the operator cannot be applied to the given type
+     */
+    public void apply(CustomObject obj) throws OperationNotSupportedException {
+        Variable var = obj.getPropertyByName(varName);
 
         applyOperation(operation, var, argument);
-    }
-
-    @Override
-    public void apply(CustomObject customObject) throws OperationNotSupportedException {
-        //not needed
-        throw new NotImplementedException();
     }
 
     /**

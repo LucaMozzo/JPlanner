@@ -39,12 +39,11 @@ public class Precondition<E extends DefaultDataType, T extends CustomObject> ext
     /**
      * Determines if the property within the given object satisfied the required attribute
      * If the variable is not Comparable<> an exception is thrown
-     * @param state the current state
      * @param obj the object
      * @return whether is satisfied or not
      * @throws ClassCastException if the type of the variable is not comparable
      */
-    public boolean isSatisfied(State state, CustomObject obj) throws ClassCastException {
+    public boolean isSatisfied(CustomObject obj) throws ClassCastException {
         Variable var = obj.getPropertyByName(varName);
         switch(operator){
             case EQUAL:
