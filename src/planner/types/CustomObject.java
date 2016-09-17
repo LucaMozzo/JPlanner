@@ -50,4 +50,22 @@ public abstract class CustomObject {
             }
         return true;
     }
+
+    /**
+     * Creates a copy of this instance
+     * @return the copy
+     */
+    public CustomObject duplicate(){
+        try {
+            return (CustomObject)this.clone();
+        } catch (CloneNotSupportedException e) {
+            System.err.println("Error while cloning object @" + this.hashCode());
+        }
+        return null;
+    }
+
+    @Override
+    public String toString(){
+        return this.getClass().getName() + "(" + hashCode() + ")";
+    }
 }

@@ -1,10 +1,7 @@
 package planner.problem;
 
-import planner.domain.Action;
-import planner.domain.IAction;
-import planner.domain.Variable;
+import planner.types.CustomObject;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -30,8 +27,8 @@ public class TreeState extends State {
      * In most cases we want a children in the tree to have the plan of the parent to which add more actions
      * @param parentPlan the plan of the parent
      */
-    public TreeState(LinkedList<IAction> parentPlan, LinkedList<Variable> vars){
-        super(vars);
+    public TreeState(LinkedList<IAction> parentPlan, LinkedList<CustomObject> objs){
+        super(objs);
 
         actions = new LinkedList<>(parentPlan);
     }
@@ -55,12 +52,12 @@ public class TreeState extends State {
     @Override
     public String toString(){
         String tmp = "Actions: [";
-        String tmp2 = "Variables: [";
+        String tmp2 = "Objects: [";
 
         for(IAction a : actions)
             tmp += a + ", ";
 
-        for(Variable v : variables)
+        for(CustomObject v : customObjects)
             tmp2 += v + ", ";
 
         tmp = tmp.length() > 11 ? tmp.substring(0, tmp.length() - 2) + "]" : tmp + "]";
@@ -68,34 +65,4 @@ public class TreeState extends State {
 
         return tmp2 + " " + tmp;
     }
-
-    /*
-    @Override
-    public boolean equals(CustomObject other){
-        if(other instanceof TreeState){
-            //checking the size first saves time if it's not necessary to loop through both arrays
-            if(!(actions.size() == ((TreeState) other).actions.size() && variables.size() == ((TreeState) other).variables.size()))
-                return false;
-
-            Iterator iterator = variables.iterator();
-            Iterator otherIterator = ((State) other).variables.iterator();
-
-            while(iterator.hasNext()){
-                if(!iterator.next().equals(otherIterator.next()))
-                    return false;
-            }
-
-            iterator = actions.iterator();
-            otherIterator = ((TreeState) other).actions.iterator();
-
-            while(iterator.hasNext()){
-                if(!iterator.next().equals(otherIterator.next()))
-                    return false;
-            }
-
-            return true;
-        }
-        else
-            return false;
-    }*/
 }

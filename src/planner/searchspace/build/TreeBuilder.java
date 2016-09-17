@@ -2,7 +2,6 @@ package planner.searchspace.build;
 
 import planner.domain.Action;
 import planner.domain.Domain;
-import planner.domain.IAction;
 import planner.domain.generic.ObjectAction;
 import planner.problem.Problem;
 import planner.problem.State;
@@ -52,37 +51,41 @@ public final class TreeBuilder{
             //for each possible action
             for (IAction a : applicableActions) {
 
-                //create a new state and node
-                TreeState childState = new TreeState(parentState.getActions(), parentState.getInstanceVariables()); //the child node will inherit everything from the parent
-                Node<TreeState> node = new Node<>(childState);
-
-                //apply the action and add it to the list to keep track of it
-                childState.addAction(a);
-
                 //differentiate between actions and object-actions
                 if(a instanceof Action) {
-                    a.applyEffects(childState);
+                    generateChild(tree, parent, domain, parentState, a, null);
 
-                    //add the node to the tree
-                    tree.addNode(node, parent);
-
-                    //recur
-                    expandNode(tree, node, domain);
                 }
                 else {
                     LinkedList<CustomObject> objects = ((ObjectAction)a).getQualifiedObjects(parentState);
                     for(CustomObject o : objects){
-                        a.applyEffects(o);
-
-                        //add the node to the tree
-                        tree.addNode(node, parent);
-
-                        //recur
-                        expandNode(tree, node, domain);
+                        generateChild(tree, parent, domain, parentState, a, o);
                     }
                 }
             }
         }
         return tree;
+    }
+
+    private static void generateChild(Tree tree, Node<TreeState> parent, Domain domain, TreeState parentState, IAction a, CustomObject obj) throws OperationNotSupportedException {
+        //create a new state and node
+        TreeState childState = new TreeState(parentState.getActions(), parentState.getInstanceVariables()); //the child node will inherit everything from the parent
+        Node<TreeState> node = new Node<>(childState);
+
+        //apply the action and add it to the list to keep track of it
+        childState.addAction(a);
+
+        if(a instanceof Action)
+            a.applyEffects(childState);
+        else {
+            a.applyEffects(obj);
+            ((ObjectAction)a).appendName(" @" + obj.toString());
+        }
+
+        //add the node to the tree
+        tree.addNode(node, parent);
+
+        //recur
+        expandNode(tree, node, domain);
     }
 }

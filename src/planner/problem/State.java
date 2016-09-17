@@ -38,7 +38,7 @@ public class State {
      * Return all the customObjects of this instance
      * @return the customObjects
      */
-    private LinkedList<CustomObject> getInstanceObjects() {
+    public LinkedList<CustomObject> getInstanceObjects() {
         return customObjects;
     }
 

@@ -1,7 +1,6 @@
 package planner.problem;
 
 import planner.domain.Domain;
-import planner.domain.IAction;
 import planner.searchspace.build.TreeBuilder;
 import planner.searchspace.datastructures.Tree;
 import planner.searchspace.search.DFS;

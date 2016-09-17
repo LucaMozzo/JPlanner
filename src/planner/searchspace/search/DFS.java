@@ -1,6 +1,5 @@
 package planner.searchspace.search;
 
-import planner.domain.IAction;
 import planner.problem.State;
 import planner.problem.TreeState;
 import planner.searchspace.datastructures.Node;

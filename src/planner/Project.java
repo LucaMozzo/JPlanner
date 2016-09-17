@@ -1,7 +1,6 @@
 package planner;
 
 import planner.domain.Domain;
-import planner.domain.IAction;
 import planner.problem.Problem;
 import utils.exceptions.DuplicateVariableNameException;
 import utils.exceptions.OperationNotSupportedException;
