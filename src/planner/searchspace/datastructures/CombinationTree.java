@@ -1,8 +1,7 @@
 package planner.searchspace.datastructures;
 
-import java.util.LinkedList;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -10,18 +9,16 @@ import java.util.Stack;
  *
  * This tree provides functionality for extracting all root-to-leaf combinations
  */
-public class CombinationTree extends Tree {
+public class CombinationTree<E> extends Tree {
 
     /**
      * Returns all the root-to-leaf combinations, i.e. all the possible paths to get from the root to each leaf
      * @return a list of paths
      */
-    public LinkedList<LinkedList<Node>> getCombinations(){
-        LinkedList<LinkedList<Node>> combinations = new LinkedList<>();
+    public LinkedList<LinkedList<E>> getCombinations(){
+        LinkedList<LinkedList<E>> combinations = new LinkedList<>();
 
         Iterator it = iterator();
-
-        Stack<Node> currentStack = new Stack<>();
 
         //because we exclude the root which is always empty, if the tree has no other children, we return null
         if(size <= 1)
@@ -46,11 +43,11 @@ public class CombinationTree extends Tree {
      * @param node the node
      * @return the path from the root
      */
-    private Stack<Node> getAncestorsStack(Node node){
-        Stack<Node> stack = new Stack<>();
+    private Stack<E> getAncestorsStack(Node node){
+        Stack<E> stack = new Stack<>();
 
         while(!node.getParent().equals(root)){
-            stack.push(node);
+            stack.push((E) node.getElement());
             node = node.getParent();
         }
 
@@ -62,8 +59,8 @@ public class CombinationTree extends Tree {
      * @param stack the stack
      * @return a list containing the elements of the stack
      */
-    private LinkedList<Node> stackToList(Stack<Node> stack){
-        LinkedList<Node> nodes = new LinkedList<>();
+    private LinkedList<E> stackToList(Stack<E> stack){
+        LinkedList<E> nodes = new LinkedList<>();
 
         for(int i = 0; i < stack.size() - 2; ++i){
             nodes.addLast(stack.pop());

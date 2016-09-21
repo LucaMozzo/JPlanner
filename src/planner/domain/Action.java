@@ -1,10 +1,9 @@
 package planner.domain;
 
 import planner.problem.State;
+import planner.searchspace.datastructures.CombinationTree;
 import planner.searchspace.datastructures.Node;
-import planner.searchspace.datastructures.Tree;
 import planner.types.CustomObject;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utils.exceptions.OperationNotSupportedException;
 
 import java.util.LinkedList;
@@ -96,6 +95,7 @@ public class Action{
      * @return a list of the lists of candidates for each parameter
      */
     public LinkedList<LinkedList<CustomObject>> getApplicable(State state){
+        LinkedList<LinkedList<CustomObject>> applicableCombinations = new LinkedList<>();
         LinkedList<CustomObject> instanceObjects  = state.getInstanceObjects(); //will temporary store instance objects of the problem
         Variable var = null;
 
@@ -105,7 +105,7 @@ public class Action{
             allCandidates.add(p.getCandidates(state));
         }
 
-        Tree tree = new Tree();
+        CombinationTree<CustomObject> tree = new CombinationTree<>();
         tree.addNode(new Node<>(null));
 
         //I manually add the first layer of candidates
@@ -115,36 +115,42 @@ public class Action{
         for(int i = 0; i < allCandidates.get(0).size(); ++i)
             tree = buildCombinationTree(tree, allCandidates, (Node)tree.getRoot().getChildren().get(i), 1);
 
-            /*
-                the first condition checks whether there's an instance of the needed variable in that problem
-                to avoid users' mistakes, whereas the second checks whether the current value of the variable
-                satisfies the expected value of the precondition
-             */
-            if(var.getName().equals(tmpVar.getName()) && precondition.isSatisfied(state))
-                continue;
-            else
-                return false;
+        //check if all the parameters satisfy the preconditions
+        outer: for(LinkedList<CustomObject> combination : tree.getCombinations()){
+            for(CustomObject obj : combination)
+                for(Precondition precondition : preconditions){
+                    if(!precondition.isSatisfied(obj))
+                        continue outer; //one precondition that is not satisfied is enough for a combination to not be applicable
+                }
+            applicableCombinations.add(combination);
+        }
 
+        return applicableCombinations;
     }
 
     /**
-     *
-     * @param tree
-     * @param candidates
-     * @param parent
+     * Expands the tree recursively with all combinations of parameters
+     * @param tree the current tree
+     * @param candidates the candidate objects qualified as parameters
+     * @param parent the parent node of this layer
      * @param index the index of the parameter's list
-     * @return
+     * @return the updated combination tree
      */
-    private Tree buildCombinationTree(Tree tree, LinkedList<LinkedList<CustomObject>> candidates, Node parent, int index){
+    private CombinationTree<CustomObject> buildCombinationTree(CombinationTree tree, LinkedList<LinkedList<CustomObject>> candidates, Node parent, int index){
 
         if(index < candidates.size()){
+
+            //temporary tree for multiple recursion
+            CombinationTree<CustomObject> tmpTree = tree;
+
             for(CustomObject o : candidates.get(index)){
                 Node child = new Node<>(o);
                 tree.addNode(child, parent);
 
-                buildCombinationTree(tree, candidates, child, index + 1);
+                tmpTree = buildCombinationTree(tree, candidates, child, index + 1);
             }
-              ++index;
+
+            return tmpTree;
         }
         else {
             //end of recursion
