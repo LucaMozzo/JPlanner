@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
  *
  * Represents a custom object
  */
-public abstract class CustomObject {
+public abstract class CustomObject implements Duplicable{
 
     /**
      * Returns a field variable in the class with the given name
@@ -32,29 +32,34 @@ public abstract class CustomObject {
         return null;
     }
 
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof CustomObject) {
+            Field[] fields = getClass().getDeclaredFields();
+            Class otherClass = other.getClass();
+
+            for (Field f : fields)
+                try {
+                    if (!f.equals(otherClass.getDeclaredField(f.getName())))
+                        return false;
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                }
+            return true;
+        }
+        return false;
+    }
+
     /**
-     * Two customObjects match if they have the same properties with the same values (different from equals)
+     * Two customObjects match if they have are the same exact object (same hashcode)
      * @param other the other CustomObject
      * @return whether they match
      */
     public boolean matches(CustomObject other){
-        Field[] fields = getClass().getDeclaredFields();
-        Class otherClass = other.getClass();
-
-        for(Field f : fields)
-            try {
-                if(! f.equals(otherClass.getDeclaredField(f.getName())))
-                    return false;
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            }
-        return true;
+        return hashCode() == other.hashCode();
     }
 
-    /**
-     * Creates a copy of this instance
-     * @return the copy
-     */
+    @Override
     public CustomObject duplicate(){
         try {
             return (CustomObject)this.clone();

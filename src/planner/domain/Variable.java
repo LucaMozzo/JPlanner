@@ -1,6 +1,7 @@
 package planner.domain;
 
 import planner.types.DefaultDataType;
+import planner.types.Duplicable;
 import utils.Validation;
 
 /**
@@ -8,7 +9,7 @@ import utils.Validation;
  *
  * Represents a variable (i.e. both predicates and functions in PDDL)
  */
-public class Variable<E extends DefaultDataType> {
+public class Variable<E extends Duplicable> {
 
     private String name;
     private E value;
@@ -25,7 +26,7 @@ public class Variable<E extends DefaultDataType> {
         else
             throw new IllegalArgumentException("The name of the predicate is not valid. Only numbers and characters are allowed");
 
-        value = (E)((DefaultDataType)defaultValue).copyByValue(); //to avoid parent-children variable referencing causing errors in the program
+        value = (E)((DefaultDataType)defaultValue).duplicate(); //to avoid parent-children variable referencing causing errors in the program
     }
 
     /**

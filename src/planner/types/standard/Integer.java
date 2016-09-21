@@ -109,7 +109,7 @@ public class Integer extends DefaultDataType implements Comparable<Integer>{
     }
 
     @Override
-    public Integer copyByValue(){
+    public Integer duplicate(){
         return new Integer(value);
     }
 }

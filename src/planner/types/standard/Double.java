@@ -128,7 +128,7 @@ public class Double extends DefaultDataType implements  Comparable<Double> {
     }
 
     @Override
-    public Double copyByValue(){
+    public Double duplicate(){
         return new Double(value);
     }
 }

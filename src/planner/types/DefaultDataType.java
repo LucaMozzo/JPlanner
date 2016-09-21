@@ -7,7 +7,7 @@ import utils.exceptions.OperationNotSupportedException;
  *
  * Abstract class for a custom data type, containing default implementation for every method in the interface
  */
-public abstract class DefaultDataType implements NumericDataType {
+public abstract class DefaultDataType implements NumericDataType, Duplicable {
 
     @Override
     public void onIncrease() throws OperationNotSupportedException {
@@ -69,9 +69,6 @@ public abstract class DefaultDataType implements NumericDataType {
         throw new OperationNotSupportedException("This data type doesn't support the operation \"set false\"");
     }
 
-    /**
-     * Creates a value-copy of the object which is deferenced from it
-     * @return the copy
-     */
-    public abstract DefaultDataType copyByValue();
+    @Override
+    public abstract Duplicable duplicate();
 }

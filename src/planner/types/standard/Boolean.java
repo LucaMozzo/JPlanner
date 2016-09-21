@@ -1,6 +1,7 @@
 package planner.types.standard;
 
 import planner.types.DefaultDataType;
+import planner.types.Duplicable;
 
 /**
  * Created by LUCA on 15/06/2016.
@@ -48,7 +49,7 @@ public class Boolean extends DefaultDataType {
     }
 
     @Override
-    public Boolean copyByValue(){
+    public Boolean duplicate(){
         return new Boolean(value);
     }
 }
