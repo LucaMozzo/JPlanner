@@ -1,5 +1,6 @@
 package planner.problem;
 
+import planner.domain.Action;
 import planner.types.CustomObject;
 
 import java.util.LinkedList;
@@ -12,7 +13,7 @@ import java.util.LinkedList;
 public class TreeState extends State {
 
     //keep track of the actions applied so far
-    private LinkedList<IAction> actions;
+    private LinkedList<Action> actions;
 
     /**
      * If the state is a root state, it doesn't inherit any sequence of actions
@@ -27,7 +28,7 @@ public class TreeState extends State {
      * In most cases we want a children in the tree to have the plan of the parent to which add more actions
      * @param parentPlan the plan of the parent
      */
-    public TreeState(LinkedList<IAction> parentPlan, LinkedList<CustomObject> objs){
+    public TreeState(LinkedList<Action> parentPlan, LinkedList<CustomObject> objs){
         super(objs);
 
         actions = new LinkedList<>(parentPlan);
@@ -37,7 +38,7 @@ public class TreeState extends State {
      * Add an action to keep track of
      * @param action the action
      */
-    public void addAction(IAction action){
+    public void addAction(Action action){
         actions.add(action);
     }
 
@@ -45,7 +46,7 @@ public class TreeState extends State {
      * Getter for the list of actions
      * @return the list of actions
      */
-    public LinkedList<IAction> getActions(){
+    public LinkedList<Action> getActions(){
         return actions;
     }
 
@@ -54,7 +55,7 @@ public class TreeState extends State {
         String tmp = "Actions: [";
         String tmp2 = "Objects: [";
 
-        for(IAction a : actions)
+        for(Action a : actions)
             tmp += a + ", ";
 
         for(CustomObject v : customObjects)

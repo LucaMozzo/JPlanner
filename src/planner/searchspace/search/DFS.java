@@ -1,5 +1,6 @@
 package planner.searchspace.search;
 
+import planner.domain.Action;
 import planner.problem.State;
 import planner.problem.TreeState;
 import planner.searchspace.datastructures.Node;
@@ -21,7 +22,7 @@ public final class DFS {
      * @param goalState the goal
      * @return the plan
      */
-    public static LinkedList<IAction> search(Tree searchSpace, State goalState){
+    public static LinkedList<Action> search(Tree searchSpace, State goalState){
         //the iterator uses preorder traversal, which is the same as DFS
         Iterator preorderTraversal = searchSpace.iterator();
 
