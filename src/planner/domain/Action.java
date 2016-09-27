@@ -95,6 +95,7 @@ public class Action{
      * @return a list of the lists of candidates for each parameter
      */
     public LinkedList<LinkedList<CustomObject>> getApplicable(State state){
+
         LinkedList<LinkedList<CustomObject>> applicableCombinations = new LinkedList<>();
         LinkedList<CustomObject> instanceObjects  = state.getInstanceObjects(); //will temporary store instance objects of the problem
         Variable var = null;

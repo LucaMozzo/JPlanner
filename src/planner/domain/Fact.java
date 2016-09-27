@@ -1,13 +1,14 @@
 package planner.domain;
 
 import planner.types.DefaultDataType;
+import planner.types.Duplicable;
 
 /**
  * Created by LUCA on 05/05/2016.
  *
  * Abstraction of precondition (a fact that has to be true) and operation (a fact that becomes true after an action) common methods
  */
-public abstract class Fact<E extends DefaultDataType> {
+public abstract class Fact<E extends Duplicable> {
     protected String varName;
     protected E value;
 

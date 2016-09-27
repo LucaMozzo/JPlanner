@@ -87,6 +87,14 @@ public class State {
         return tmp;
     }
 
+    /**
+     * Returns all the customObjects
+     * @return all the objects in this state
+     */
+    public LinkedList<CustomObject> getObjects() {
+        return customObjects;
+    }
+
     @Override
     public String toString(){ //TODO fix this
         /*String tmp = "Variables: [";

@@ -1,9 +1,7 @@
 package planner.domain;
 
-import planner.problem.State;
 import planner.types.CustomObject;
-import planner.types.DefaultDataType;
-import planner.types.standard.Integer;
+import planner.types.Duplicable;
 import utils.Comparison;
 
 /**
@@ -11,7 +9,7 @@ import utils.Comparison;
  *
  * A precondition is a fact that has to be satisfied in order to apply the action
  */
-public class Precondition<E extends DefaultDataType, T extends CustomObject> extends Fact<E> {
+public class Precondition<E extends Duplicable> extends Fact<E> {
 
     private Comparison operator;
 
