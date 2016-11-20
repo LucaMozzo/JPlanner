@@ -2,6 +2,7 @@ package planner.searchspace.build;
 
 import planner.domain.Action;
 import planner.domain.Domain;
+import planner.domain.ParameterSet;
 import planner.problem.Problem;
 import planner.problem.State;
 import planner.problem.TreeState;
@@ -61,22 +62,23 @@ public final class TreeBuilder{
         else {
             //for each possible action
             for (Action a : applicableActions) {
+                //for each parameter combination for the action
+                for(ParameterSet paramSet : a.getApplicable(parentState)) {
+                    //create a new state and node
+                    TreeState childState = new TreeState(parentState.getActions(), parentState.getObjects()); //the child node will inherit everything from the parent
+                    Node<TreeState> node = new Node<>(childState);
 
-                //create a new state and node
-                TreeState childState = new TreeState(parentState.getActions(), parentState.getObjects()); //the child node will inherit everything from the parent
-                Node<TreeState> node = new Node<>(childState);
+                    //apply the action and add it to the list to keep track of it
+                    childState.addAction(a);
 
-                //apply the action and add it to the list to keep track of it
-                childState.addAction(a);
+                    a.applyEffects(paramSet);
 
-                a.applyEffects(childState); //TODO fix problem with effects
+                    //add the node to the tree
+                    tree.addNode(node, parent);
 
-                //add the node to the tree
-                tree.addNode(node, parent);
-
-                //recur
-                expandNode(tree, node, domain);
-
+                    //recur
+                    expandNode(tree, node, domain);
+                }
             }
         }
         return tree;

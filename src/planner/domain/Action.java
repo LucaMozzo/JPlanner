@@ -94,7 +94,7 @@ public class Action{
      * @param state the state on which check if applicable
      * @return a list of the lists of candidates for each parameter
      */
-    public LinkedList<LinkedList<CustomObject>> getApplicable(State state){
+    public LinkedList<ParameterSet> getApplicable(State state){ //TODO reimplement using parameterset
 
         LinkedList<LinkedList<CustomObject>> applicableCombinations = new LinkedList<>();
         LinkedList<CustomObject> instanceObjects  = state.getInstanceObjects(); //will temporary store instance objects of the problem
@@ -160,13 +160,13 @@ public class Action{
     }
 
     /**
-     * Applies all the effects after it is performed
-     * @param obj the object on which apply the effects
+     * Applies all the effects to the objects associeted with the parameter set
+     * @param pset the object on which apply the effects
      * @throws OperationNotSupportedException if the operation is not supported by the data type
      */
-    public void applyEffects(CustomObject obj) throws OperationNotSupportedException {
+    public void applyEffects(ParameterSet pset) throws OperationNotSupportedException {
         for(Effect effect : effects)
-            effect.apply(obj);
+            effect.apply(pset.getAssociated(effect.getParameter()));
     }
 
     @Override

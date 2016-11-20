@@ -14,7 +14,7 @@ import java.util.LinkedList;
  */
 public class Parameter<E extends CustomObject> {
 
-    private Class type;
+    protected Class type;
 
     /**
      * The constructors stores into type, the class of the parameter E

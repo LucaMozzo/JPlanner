@@ -17,18 +17,21 @@ import utils.Validation;
  */
 public class Effect<E extends DefaultDataType> extends Fact<E>{
 
-    Operation operation;
-    DataType argument;
+    protected Operation operation;
+    protected DataType argument;
+    protected Parameter param;
 
     /**
      * The constructor takes the variable the operation on it
      * @param var the variable name
+     * @param param the parameter on which apply the effect
      * @param operation the expected value
      */
-    public Effect(String var, Operation operation){
+    public Effect(String var, Parameter param, Operation operation){
         super(var);
 
         this.operation = operation;
+        this.param = param;
 
         //check if the argument is needed
         if(!Validation.checkType(operation, false))
@@ -38,10 +41,11 @@ public class Effect<E extends DefaultDataType> extends Fact<E>{
     /**
      * The constructor takes the variable the operation on it and an argument
      * @param var the variable name
+     * @param param the parameter on which apply the effect
      * @param operation the expected value
      * @param arg the argument
      */
-    public Effect(String var, Operation operation, DataType arg){
+    public Effect(String var, Parameter param, Operation operation, DataType arg){
         super(var);
 
         this.operation = operation;
@@ -62,6 +66,12 @@ public class Effect<E extends DefaultDataType> extends Fact<E>{
 
         applyOperation(operation, var, argument);
     }
+
+    /**
+     * Returns the parameter where the effect will be applied
+     * @return the parameter
+     */
+    public Parameter getParameter() { return param; }
 
     /**
      * Applies the operation to the variable
