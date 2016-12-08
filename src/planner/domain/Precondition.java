@@ -35,6 +35,18 @@ public class Precondition<E extends Duplicable> extends Fact<E> {
     }
 
     /**
+     * Allows to specify a precondition with no expected value
+     * To be used only with NULL and NOT_NULL
+     * @param varName the name of the variable
+     * @param operator the operator - either NULL or NOT_NULL
+     */
+    public Precondition(String varName, Comparison operator){
+        super(varName, null);
+
+        this.operator = operator;
+    }
+
+    /**
      * Determines if the property within the given object satisfied the required attribute
      * If the variable is not Comparable<> an exception is thrown
      * @param obj the object
@@ -56,6 +68,10 @@ public class Precondition<E extends Duplicable> extends Fact<E> {
                 return ((Comparable<E>) var.getValue()).compareTo(value) >= 0;
             case LESS_OR_EQUAL:
                 return ((Comparable<E>) var.getValue()).compareTo(value) <= 0;
+            case NULL:
+                return obj == null;
+            case NOT_NULL:
+                return obj != null;
         }
         return false;
     }
