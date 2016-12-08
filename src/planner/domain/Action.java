@@ -96,16 +96,18 @@ public class Action{
      */
     public LinkedList<ParameterSet> getApplicable(State state){ //TODO reimplement using parameterset
 
-        LinkedList<LinkedList<CustomObject>> applicableCombinations = new LinkedList<>();
+        LinkedList<ParameterSet> applicableCombinations = new LinkedList<>();
         LinkedList<CustomObject> instanceObjects  = state.getInstanceObjects(); //will temporary store instance objects of the problem
         Variable var = null;
 
+        //List of candidates for each parameter
         LinkedList<LinkedList<CustomObject>> allCandidates = new LinkedList<>();
 
         for(Parameter p : parameters){
             allCandidates.add(p.getCandidates(state));
         }
 
+        //empty root node of the tree
         CombinationTree<CustomObject> tree = new CombinationTree<>();
         tree.addNode(new Node<>(null));
 
@@ -123,7 +125,7 @@ public class Action{
                     if(!precondition.isSatisfied(obj))
                         continue outer; //one precondition that is not satisfied is enough for a combination to not be applicable
                 }
-            applicableCombinations.add(combination);
+            applicableCombinations.add(new ParameterSet(combination, parameters));
         }
 
         return applicableCombinations;
@@ -137,7 +139,7 @@ public class Action{
      * @param index the index of the parameter's list
      * @return the updated combination tree
      */
-    private CombinationTree<CustomObject> buildCombinationTree(CombinationTree tree, LinkedList<LinkedList<CustomObject>> candidates, Node parent, int index){
+    private CombinationTree buildCombinationTree(CombinationTree tree, LinkedList<LinkedList<CustomObject>> candidates, Node parent, int index){
 
         if(index < candidates.size()){
 
