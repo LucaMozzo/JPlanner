@@ -1,5 +1,5 @@
-# OOPlanner
-OOPlanner is an Object-Oriented AI planner implemented in Java. Although it's inspired from PDDL, it works 100% in Java: problems and domains can be dynamically created in Java.
+# JPlanner
+JPlanner is an Object-Oriented AI planner implemented in Java. Although it's inspired from PDDL, it works 100% in Java: problems and domains can be dynamically created in Java.
 
 ## Versions
 
@@ -9,7 +9,8 @@ Working version with basic features of PDDL. It doesn't support objects and para
 
 ### Branch newv (v2.0)
 ![Build Status](https://img.shields.io/badge/build-failed-red.svg?style=flat-square)
-Full support for PDDL 2.x, object-oriented and added support for parameterized actions. Still uses uninformed search, heuristics will be introduced from next version. Currently under development.
+![Build Status](https://img.shields.io/badge/test-failed-red.svg?style=flat-square)
+Full support for PDDL 2.x, object-oriented and added support for parameterized actions. Still uses uninformed search, heuristics will be introduced from next version. Currently under development, unit testing used from this version.
 
 ### Features coming out in the future
 - Temporal planning
